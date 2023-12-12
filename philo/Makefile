@@ -6,7 +6,7 @@
 #    By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/12 11:25:24 by damachad          #+#    #+#              #
-#    Updated: 2023/12/12 11:29:28 by damachad         ###   ########.fr        #
+#    Updated: 2023/12/12 16:40:05 by damachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ $(NAME): $(OBJ_DIR) $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 	@echo "[$(GREEN)$(NAME) created$(RESET)]"
 
-$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c 
+$(OBJ_DIR)/%.o : %.c 
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
