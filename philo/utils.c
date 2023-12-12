@@ -6,12 +6,13 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:46:02 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/12 16:47:34 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:25:27 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/* Convert a char *str to an int */
 int	ft_atoi(char *nptr)
 {
 	int	i;
@@ -32,4 +33,16 @@ int	ft_atoi(char *nptr)
 		i++;
 	}
 	return (sign * result);
+}
+
+/* Allocate memory for nitems * size and set to '\0' */
+void	*ft_calloc(size_t nitems, size_t size)
+{
+	void	*ptr;
+
+	ptr = (void *)malloc(nitems * size);
+	if (!ptr)
+		return (0);
+	memset(ptr, '\0', nitems * size);
+	return (ptr);
 }
