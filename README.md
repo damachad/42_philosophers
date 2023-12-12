@@ -1,7 +1,7 @@
 # 42_philosophers
 This project is about learning how to use threads and mutexes   
 ## Workflow   
-- Check valid input (at least one digit per arg)
+- Check valid input (at least one digit per arg) (ft_atoi returns 0)
 - Create int array with forks?
 - Create mutex array, one for each fork
 - Linked list for philosophers. Each philosopher is a node (with an int representing its number and an int array of 2 elements with the forks it can use)?
