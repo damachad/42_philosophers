@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:15:11 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/13 09:58:00 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/13 10:55:24 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <string.h>
+# include <stdbool.h>
 # include <sys/time.h>
 
 // Macros
@@ -36,6 +37,7 @@ typedef struct	s_data
 	int					t_sleep;
 	int					nbr_times_each_must_eat;
 	int					*forks;
+	bool				dead_philo;
 	pthread_t			*philos;
 	pthread_t			*monitor;
 	pthread_mutex_t		*mutex;
@@ -48,6 +50,7 @@ typedef struct	s_data
 int		init_data(t_data *data, char **argv);
 
 // In utils.c
+int		get_time(void);
 int		ft_atoi(char *nptr);
 void	*ft_calloc(size_t nitems, size_t size);
 
