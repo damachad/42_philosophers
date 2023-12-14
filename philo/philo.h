@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:15:11 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/13 10:55:24 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/14 14:30:28 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,9 @@ int		init_data(t_data *data, char **argv);
 int		get_time(void);
 int		ft_atoi(char *nptr);
 void	*ft_calloc(size_t nitems, size_t size);
+
+// In routine.c
+void	*philo_routine(void *arg);
+void	*monitor_routine(void *arg);
 
 #endif

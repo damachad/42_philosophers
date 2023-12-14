@@ -6,20 +6,21 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:46:02 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/13 10:37:52 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/14 14:49:14 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/* Returns current time in seconds since the Epoch */
 int	get_time(void)
 {
 	struct timeval	time;
 
 	if (gettimeofday(&time, NULL))
 		return (0);
-	printf("time: %ld\n", (time.tv_sec * 1000) + (time.tv_usec / 1000));
-	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+	printf("secs since Epoch: %ld\n", time.tv_sec + (time.tv_usec / 1000000));
+	return (time.tv_sec + (time.tv_usec / 1000000));
 }
 
 /* Convert a char *str to an int */

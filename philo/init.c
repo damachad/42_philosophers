@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:05:20 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/13 10:00:14 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/14 14:38:53 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ int	init_data(t_data *data, char **argv)
 	if (data->t_die < 60 || data->t_eat < 60 || data->t_sleep < 60 || \
 	data->nbr_philos < 1 || data->nbr_times_each_must_eat < 0 || \
 	data->nbr_philos > 200)
+	{
+		free(data->forks);
+		free(data);
 		return (1);
+	}
 	return (0);
 }
