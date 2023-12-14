@@ -36,17 +36,17 @@ typedef struct	s_data
 	int					t_eat;
 	int					t_sleep;
 	int					nbr_times_each_must_eat;
-	int					*forks;
 	bool				dead_philo;
 	pthread_t			*philos;
-	pthread_t			*monitor;
-	pthread_mutex_t		*mutex;
-	pthread_mutex_t		*print;
+	pthread_t			monitor;
+	pthread_mutex_t		*forks;
+	pthread_mutex_t		print;
 }						t_data;
 
 // Prototypes
 
 // In init.c
+int		seat_philos(t_data *data);
 int		init_data(t_data *data, char **argv);
 
 // In utils.c

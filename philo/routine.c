@@ -21,19 +21,18 @@ void	*philo_routine(void *arg)
 	data = (t_data *)arg;
 	while (++i < data->nbr_times_each_must_eat || !data->dead_philo)
 	{
-		pthread_mutex_lock(&data->mutex[i]);
+		pthread_mutex_lock(&data->forks[i]);
 		printf("Philosopher %d has taken a fork\n", i);
-		pthread_mutex_lock(&data->mutex[i + 1]);
+		pthread_mutex_lock(&data->forks[i + 1]);
 		printf("Philosopher %d has taken a fork\n", i);
 		printf("Philosopher %d is eating\n", i);
 		usleep(data->t_eat * 1000);
-		pthread_mutex_unlock(&data->mutex[i]);
-		pthread_mutex_unlock(&data->mutex[i + 1]);
+		pthread_mutex_unlock(&data->forks[i]);
+		pthread_mutex_unlock(&data->forks[i + 1]);
 		printf("Philosopher %d is sleeping\n", i);
 		usleep(data->t_sleep * 1000);
 		printf("Philosopher %d is thinking\n", i);
 	}
-	return (NULL);
 }
 
 void	*monitor_routine(void *arg)
@@ -43,14 +42,6 @@ void	*monitor_routine(void *arg)
 
 	i = -1;
 	data = (t_data *)arg;
-	while (++i < data->nbr_philos)
-	{
-		// if (get_time() - data->philos[i] > data->t_die)
-		// {
-		// 	printf("Philosopher %d died\n", i);
-		// 	data->dead_philo = true;
-		// 	return (NULL);
-		// }
-	}
-	return (NULL);
+	while (!data->dead_philo)
+		continue ;
 }
