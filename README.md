@@ -7,3 +7,6 @@ This project is about learning how to use threads and mutexes
 - Create more precise usleep
 - Create system for what fork each philo should pick up first, and if it checks both forks
 - Improve philo_routine
+
+## Links
+- Threads vs processes [link](https://medium.com/@jalal92/lets-discuss-threads-grab-a-coffee-ad4d4ebf7181).
