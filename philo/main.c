@@ -6,11 +6,24 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:01:23 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/14 14:45:06 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/18 11:19:40 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "philo.h"
+
+void	clean_data(t_data *data)
+{
+	// int	i;
+
+	// i = -1;
+	// while (++i < data->nbr_philos)
+	// 	pthread_mutex_destroy(&data->forks[i]);
+	// pthread_mutex_destroy(&data->print);
+	//free(data->forks);
+	free(data->philos);
+	free(data);
+}
 
 int main(int argc, char **argv)
 {
@@ -24,9 +37,8 @@ int main(int argc, char **argv)
 			printf("Error: Invalid arguments\n");
 			return (1);
 		}
-		//seat_philos(data);
-		//clean_data(data);
-		get_time();
+		seat_philos(data);
+		clean_data(data);
 	}
 	else
 	{

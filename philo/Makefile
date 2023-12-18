@@ -6,7 +6,7 @@
 #    By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/12 11:25:24 by damachad          #+#    #+#              #
-#    Updated: 2023/12/13 09:58:53 by damachad         ###   ########.fr        #
+#    Updated: 2023/12/18 11:15:00 by damachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ CC = cc
 RM = rm -rf
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ FLAGS _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
-CFLAGS 	= -Wall -Werror -Wextra
+CFLAGS 	= -Wall -Werror -Wextra -g -fsanitize=thread 
 MK_FLAG = --no-print-directory
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ PATHS _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
@@ -39,7 +39,7 @@ SRC 		= $(addsuffix .c, $(FILES))
 OBJ 		= $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(FILES)))
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ ARGUMENTS _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
-
+ARGS = 4 450 200 200
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ RULES _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
 all: $(NAME)
@@ -65,9 +65,10 @@ fclean: clean
 
 re: fclean all
 
-# valgrind --leak-check=full -s --show-leak-kinds=all --track-origins=yes
-
 test: $(NAME)
-	@valgrind --leak-check=full -s --show-leak-kinds=all ./$(NAME) 
+	@./$(NAME) $(ARGS)
 
-.PHONY: all clean fclean re test
+gdb: $(NAME)
+	@gdb ./$(NAME) $(ARGS)
+
+.PHONY: all clean fclean re test gdb

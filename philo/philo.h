@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:15:11 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/14 14:30:28 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/18 11:37:40 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,16 @@
 
 // Structures
 
+typedef struct philo
+{
+	struct s_data	*data;
+	int				id;
+	int				last_meal;
+	int				nbr_meals;
+	pthread_mutex_t	*l_fork;
+	pthread_mutex_t	*r_fork;
+}					t_philo;
+
 typedef struct	s_data
 {
 	int					nbr_philos;
@@ -37,7 +47,8 @@ typedef struct	s_data
 	int					t_sleep;
 	int					nbr_times_each_must_eat;
 	bool				dead_philo;
-	pthread_t			*philos;
+	t_philo				*philos;
+	pthread_t			*seats;
 	pthread_t			monitor;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		print;
