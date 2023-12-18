@@ -6,21 +6,37 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:46:02 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/14 14:49:14 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/18 15:22:27 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-/* Returns current time in seconds since the Epoch */
-int	get_time(void)
+void	ft_usleep(int time_in_ms)
+{
+	long int	start;
+
+	start = get_time();
+	while (get_time() - start < time_in_ms)
+		usleep(time_in_ms / 10);
+}
+
+/* Print a message with current time and philo id */
+void	print_message(char *str, t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->print);
+	printf("%d %ld %s\n", get_time(), philo->id, str);
+	pthread_mutex_unlock(&philo->data->print);
+}
+
+/* Returns current time in miliseconds since the Epoch */
+long int	get_time(void)
 {
 	struct timeval	time;
 
 	if (gettimeofday(&time, NULL))
 		return (0);
-	printf("secs since Epoch: %ld\n", time.tv_sec + (time.tv_usec / 1000000));
-	return (time.tv_sec + (time.tv_usec / 1000000));
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
 /* Convert a char *str to an int */

@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:15:11 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/18 11:37:40 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/18 15:22:06 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,20 @@
 
 # define ERROR_ARGS "Usage: ./philo nbr_philos t_die t_eat t_sleep [nbr_times_each_must_eat]\n"
 
+# define FORK "has taken a fork"
+# define EAT "is eating"
+# define SLEEP "is sleeping"
+# define THINK "is thinking"
+# define DIE "died"
+
 // Structures
 
 typedef struct philo
 {
 	struct s_data	*data;
 	int				id;
-	int				last_meal;
 	int				nbr_meals;
+	long int		t_of_last_meal;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
 }					t_philo;
@@ -57,16 +63,17 @@ typedef struct	s_data
 // Prototypes
 
 // In init.c
-int		seat_philos(t_data *data);
-int		init_data(t_data *data, char **argv);
+int			seat_philos(t_data *data);
+int			init_data(t_data *data, char **argv);
 
 // In utils.c
-int		get_time(void);
-int		ft_atoi(char *nptr);
-void	*ft_calloc(size_t nitems, size_t size);
+void		print_message(char *str, t_philo *philo);
+long int	get_time(void);
+int			ft_atoi(char *nptr);
+void		*ft_calloc(size_t nitems, size_t size);
 
 // In routine.c
-void	*philo_routine(void *arg);
-void	*monitor_routine(void *arg);
+void		*philo_routine(void *arg);
+void		*monitor_routine(void *arg);
 
 #endif

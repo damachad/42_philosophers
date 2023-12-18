@@ -6,42 +6,67 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:42:03 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/14 14:46:47 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/18 15:23:38 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/* Start by picking up right fork */
+void	even_fork(t_philo *philo)
+{
+	pthread_mutex_lock(&(philo->r_fork));
+	print_message(FORK, philo);
+	pthread_mutex_lock(&(philo->l_fork));
+	print_message(FORK, philo);
+	print_message(EAT, philo);
+	philo->nbr_meals++;
+	philo->t_of_last_meal = get_time();
+	ft_usleep(philo->data->t_eat * 1000);
+	pthread_mutex_unlock(&(philo->r_fork));
+	pthread_mutex_unlock(&(philo->l_fork));
+}
+
+/* Start by picking up left fork */
+void	odd_fork(t_philo *philo)
+{
+	pthread_mutex_lock(&(philo->l_fork));
+	print_message(FORK, philo);
+	pthread_mutex_lock(&(philo->r_fork));
+	print_message(FORK, philo);
+	print_message(EAT, philo);
+	philo->nbr_meals++;
+	philo->t_of_last_meal = get_time();
+	ft_usleep(philo->data->t_eat * 1000);
+	pthread_mutex_unlock(&(philo->l_fork));
+	pthread_mutex_unlock(&(philo->r_fork));
+}
+
 void	*philo_routine(void *arg)
 {
-	t_data		*data;
+	t_philo		*philo;
 	int			i;
 
 	i = -1;
-	data = (t_data *)arg;
-	while (++i < data->nbr_times_each_must_eat || !data->dead_philo)
+	philo = (t_philo *)arg;
+	while (philo->nbr_meals < philo->data->nbr_times_each_must_eat && \
+	!(philo->data->dead_philo))
 	{
-		pthread_mutex_lock(&data->forks[i]);
-		printf("Philosopher %d has taken a fork\n", i);
-		pthread_mutex_lock(&data->forks[i + 1]);
-		printf("Philosopher %d has taken a fork\n", i);
-		printf("Philosopher %d is eating\n", i);
-		usleep(data->t_eat * 1000);
-		pthread_mutex_unlock(&data->forks[i]);
-		pthread_mutex_unlock(&data->forks[i + 1]);
-		printf("Philosopher %d is sleeping\n", i);
-		usleep(data->t_sleep * 1000);
-		printf("Philosopher %d is thinking\n", i);
+		if (philo->id % 2 == 0)
+			even_fork(philo);
+		else
+			odd_fork(philo);
+		print_message(SLEEP, philo);
+		ft_usleep(philo->data->t_sleep * 1000);
+		print_message(THINK, philo);
 	}
 }
 
 void	*monitor_routine(void *arg)
 {
 	t_data		*data;
-	int			i;
 
-	i = -1;
 	data = (t_data *)arg;
-	while (!data->dead_philo)
+	while (!(data->dead_philo))
 		continue ;
 }

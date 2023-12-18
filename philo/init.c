@@ -6,47 +6,33 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:05:20 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/18 11:45:31 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/18 14:52:51 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*print_ID(void *tid)
-{
-	printf("Thread ID: %lu\n", *(pthread_t *)tid);
-	return (NULL);
-}
-
 int	seat_philos(t_data *data)
 {
-	// int				i;
-	pthread_t		philo1, philo2;
-	// pthread_t		monitor;
-	// pthread_mutex_t	*forks;
+	int				i;
+	pthread_t		monitor;
 
-	// i = -1;
-	// philos = ft_calloc(data->nbr_philos, sizeof(pthread_t));
-	// forks = ft_calloc(data->nbr_philos, sizeof(pthread_mutex_t));
-	// while (++i < data->nbr_philos)
-	// 	pthread_mutex_init(&forks[i], NULL);
-	// i = -1;
-	// pthread_create(&monitor, NULL, &monitor_routine, data);
-	// while (++i < data->nbr_philos)
-	// {
-	pthread_create(&philo1, NULL, print_ID, &philo1);
-	pthread_create(&philo2, NULL, print_ID, &philo2);
-	// }
-	// i = -1;
-	// while (++i < data->nbr_philos)
-	// {
-	pthread_join(philo1, NULL);
-	pthread_join(philo2, NULL);
-	// }
-	// pthread_join(monitor, NULL);
-	// i = -1;
-	// while (++i < data->nbr_philos)
-	// 	pthread_mutex_destroy(&forks[i]);
+	i = -1;
+	while (++i < data->nbr_philos)
+		pthread_mutex_init(&(data->forks[i]), NULL);
+	i = -1;
+	pthread_mutex_init(&(data->print), NULL);
+	pthread_create(&monitor, NULL, &monitor_routine, data);
+	while (++i < data->nbr_philos)
+		pthread_create(&(data->seats[i]), NULL, &philo_routine, &(data->philos[i]));
+	i = -1;
+	while (++i < data->nbr_philos)
+		pthread_join(data->seats[i], NULL);
+	pthread_join(monitor, NULL);
+	i = -1;
+	while (++i < data->nbr_philos)
+		pthread_mutex_destroy(&(data->forks[i]));
+	pthread_mutex_destroy(&(data->print));
 	return (0);
 }
 
@@ -56,13 +42,17 @@ void	init_philos(t_data *data)
 
 	i = -1;
 	data->philos = ft_calloc(data->nbr_philos, sizeof(t_philo));
-	while (++i < data->nbr_philos)
+	while (++i < data->nbr_philos - 1)
 	{
 		data->philos[i].id = i + 1;
 		data->philos[i].l_fork = &data->forks[i];
 		data->philos[i].r_fork = &data->forks[i + 1];
 		data->philos[i].data = data;
 	}
+	data->philos[i].id = i + 1;
+	data->philos[i].l_fork = &data->forks[i];
+	data->philos[i].r_fork = &data->forks[0];
+	data->philos[i].data = data;
 }
 
 /* Allocate memory for data struct, set to NULLS and initialize with argv[] */
@@ -82,6 +72,7 @@ int	init_data(t_data *data, char **argv)
 		free(data);
 		return (1);
 	}
+	data->seats = ft_calloc(data->nbr_philos, sizeof(pthread_t));
 	data->forks = ft_calloc(data->nbr_philos, sizeof(pthread_mutex_t));
 	init_philos(data);
 	return (0);
