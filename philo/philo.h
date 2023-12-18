@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:15:11 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/18 15:22:06 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:00:57 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct philo
 	long int		t_of_last_meal;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
+	pthread_t		checker;
 }					t_philo;
 
 typedef struct	s_data
@@ -52,12 +53,14 @@ typedef struct	s_data
 	int					t_eat;
 	int					t_sleep;
 	int					nbr_times_each_must_eat;
+	int					finished_philos;
 	bool				dead_philo;
 	t_philo				*philos;
 	pthread_t			*seats;
 	pthread_t			monitor;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		print;
+	pthread_mutex_t		end;
 }						t_data;
 
 // Prototypes
@@ -67,6 +70,7 @@ int			seat_philos(t_data *data);
 int			init_data(t_data *data, char **argv);
 
 // In utils.c
+void		ft_usleep(int time_in_ms);
 void		print_message(char *str, t_philo *philo);
 long int	get_time(void);
 int			ft_atoi(char *nptr);

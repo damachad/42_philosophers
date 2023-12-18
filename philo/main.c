@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:01:23 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/18 11:19:40 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/18 17:53:50 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 
 void	clean_data(t_data *data)
 {
-	// int	i;
-
-	// i = -1;
-	// while (++i < data->nbr_philos)
-	// 	pthread_mutex_destroy(&data->forks[i]);
-	// pthread_mutex_destroy(&data->print);
-	//free(data->forks);
-	free(data->philos);
-	free(data);
+	if (data->seats)
+		free(data->seats);
+	if (data->forks)
+		free(data->forks);
+	if (data->philos)
+		free(data->philos);
+	if (data)
+		free(data);
 }
 
 int main(int argc, char **argv)

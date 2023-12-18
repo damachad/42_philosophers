@@ -6,7 +6,7 @@
 #    By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/12 11:25:24 by damachad          #+#    #+#              #
-#    Updated: 2023/12/18 11:15:00 by damachad         ###   ########.fr        #
+#    Updated: 2023/12/18 17:52:04 by damachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ OBJ_DIR		= objs
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ FILES _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
 NAME 		= philo
-FILES 		= main init utils
+FILES 		= main init utils routine
 SRC 		= $(addsuffix .c, $(FILES))
 OBJ 		= $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(FILES)))
 
