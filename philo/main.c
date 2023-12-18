@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:01:23 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/18 17:53:50 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/18 19:17:19 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int main(int argc, char **argv)
 	data = NULL;
 	if (argc == 5 || argc == 6)
 	{
-		if (init_data(data, argv))
+		data = ft_calloc(1, sizeof(t_data));
+		if (init_data(&data, argv))
 		{
 			printf("Error: Invalid arguments\n");
 			return (1);

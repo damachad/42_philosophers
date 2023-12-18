@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:15:11 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/18 18:00:57 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:57:02 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct	s_data
 	int					t_sleep;
 	int					nbr_times_each_must_eat;
 	int					finished_philos;
+	long int			t_of_start;
 	bool				dead_philo;
 	t_philo				*philos;
 	pthread_t			*seats;
@@ -67,7 +68,7 @@ typedef struct	s_data
 
 // In init.c
 int			seat_philos(t_data *data);
-int			init_data(t_data *data, char **argv);
+int			init_data(t_data **data, char **argv);
 
 // In utils.c
 void		ft_usleep(int time_in_ms);
@@ -75,6 +76,8 @@ void		print_message(char *str, t_philo *philo);
 long int	get_time(void);
 int			ft_atoi(char *nptr);
 void		*ft_calloc(size_t nitems, size_t size);
+
+void		print_data(t_data *data);
 
 // In routine.c
 void		*philo_routine(void *arg);

@@ -6,7 +6,7 @@
 #    By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/12 11:25:24 by damachad          #+#    #+#              #
-#    Updated: 2023/12/18 17:52:04 by damachad         ###   ########.fr        #
+#    Updated: 2023/12/18 19:24:31 by damachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,10 @@ CC = cc
 RM = rm -rf
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ FLAGS _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
-CFLAGS 	= -Wall -Werror -Wextra -g -fsanitize=thread 
+
+# -fsanitize=thread
+
+CFLAGS 	= -Wall -Werror -Wextra -pthread -g
 MK_FLAG = --no-print-directory
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ PATHS _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
@@ -39,14 +42,14 @@ SRC 		= $(addsuffix .c, $(FILES))
 OBJ 		= $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(FILES)))
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ ARGUMENTS _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
-ARGS = 4 450 200 200
+ARGS = 6 800 200 200
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ RULES _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
 all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
-	@echo "[$(GREEN)$(NAME) created$(RESET)]"
+	@echo "[$(GREEN)$(SBLINK)$(NAME) created$(RESET)]"
 
 $(OBJ_DIR)/%.o : %.c 
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -69,6 +72,6 @@ test: $(NAME)
 	@./$(NAME) $(ARGS)
 
 gdb: $(NAME)
-	@gdb ./$(NAME) $(ARGS)
+	@gdb --args ./$(NAME) $(ARGS)
 
 .PHONY: all clean fclean re test gdb

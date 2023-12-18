@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:42:03 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/18 18:02:50 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/18 19:16:46 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	*philo_routine(void *arg)
 
 	i = -1;
 	philo = (t_philo *)arg;
+	philo->t_of_last_meal = get_time();
 	pthread_create(&(philo->checker), NULL, &check_routine, philo);
 	pthread_detach(philo->checker);
 	while (philo->nbr_meals < philo->data->nbr_times_each_must_eat && \

@@ -6,11 +6,22 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:46:02 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/18 17:54:55 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/18 19:25:39 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+/* Testing function to print contents of t_data */
+void	print_data(t_data *data)
+{
+	printf("Number of philosophers: %d\n", data->nbr_philos);
+	printf("Time to die: %d\n", data->t_die);
+	printf("Time to eat: %d\n", data->t_eat);
+	printf("Time to sleep: %d\n", data->t_sleep);
+	printf("Number of times each philosopher must eat: %d\n", data->nbr_times_each_must_eat);
+	printf("Finished philosophers: %d\n", data->finished_philos);
+}
 
 void	ft_usleep(int time_in_ms)
 {
@@ -25,7 +36,7 @@ void	ft_usleep(int time_in_ms)
 void	print_message(char *str, t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->print);
-	printf("%ld %d %s\n", get_time(), philo->id, str);
+	printf("%ld %d %s\n", get_time() - philo->data->t_of_start, philo->id, str);
 	pthread_mutex_unlock(&philo->data->print);
 }
 
