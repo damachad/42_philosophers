@@ -6,7 +6,7 @@
 #    By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/12 11:25:24 by damachad          #+#    #+#              #
-#    Updated: 2023/12/18 19:24:31 by damachad         ###   ########.fr        #
+#    Updated: 2023/12/19 11:58:44 by damachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ RM = rm -rf
 
 # -fsanitize=thread
 
-CFLAGS 	= -Wall -Werror -Wextra -pthread -g
+CFLAGS 	= -Wall -Werror -Wextra -pthread -g -fsanitize=thread
 MK_FLAG = --no-print-directory
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ PATHS _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
@@ -42,7 +42,7 @@ SRC 		= $(addsuffix .c, $(FILES))
 OBJ 		= $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(FILES)))
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ ARGUMENTS _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
-ARGS = 6 800 200 200
+ARGS = 4 800 200 200
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ RULES _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
 all: $(NAME)
