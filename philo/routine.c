@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:42:03 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/18 19:16:46 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:08:57 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,12 @@ void	odd_fork(t_philo *philo)
 void	*philo_routine(void *arg)
 {
 	t_philo		*philo;
-	int			i;
 
-	i = -1;
 	philo = (t_philo *)arg;
 	philo->t_of_last_meal = get_time();
 	pthread_create(&(philo->checker), NULL, &check_routine, philo);
 	pthread_detach(philo->checker);
-	while (philo->nbr_meals < philo->data->nbr_times_each_must_eat && \
-	!(philo->data->dead_philo))
+	while (!(philo->data->dead_philo))
 	{
 		if (philo->id % 2 == 0)
 			even_fork(philo);
