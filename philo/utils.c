@@ -12,15 +12,39 @@
 
 #include "philo.h"
 
+void	print_philos(t_philo *philos)
+{
+	int	i;
+
+	i = -1;
+	while (++i < philos->data->nbr_philos)
+	{
+		printf("Philosopher ID: %d\n", philos[i].id);
+		printf("Number of meals: %d\n", philos[i].nbr_meals);
+		printf("Time of last meal: %ld\n", philos[i].t_of_last_meal);
+		printf("Address of left fork %d: %p\n", i, (void *)(philos[i].l_fork));
+		printf("Address of right fork %d: %p\n", i, (void *)(philos[i].r_fork));
+		printf("\n");
+	}
+}
+
 /* Testing function to print contents of t_data */
 void	print_data(t_data *data)
 {
+	int	i;
+
+	i = -1;
 	printf("Number of philosophers: %d\n", data->nbr_philos);
 	printf("Time to die: %d\n", data->t_die);
 	printf("Time to eat: %d\n", data->t_eat);
 	printf("Time to sleep: %d\n", data->t_sleep);
 	printf("Number of times each philosopher must eat: %d\n", data->nbr_times_each_must_eat);
 	printf("Finished philosophers: %d\n", data->finished_philos);
+	printf("Time of start: %ld\n", data->t_of_start);
+	while (++i < data->nbr_philos)
+		printf("Address of fork %d: %p\n", i, &(data->forks[i]));
+	printf("\n");
+	print_philos(data->philos);
 }
 
 void	ft_usleep(int time_in_ms)
