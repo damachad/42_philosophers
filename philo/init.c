@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:05:20 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/18 18:57:39 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/20 15:32:19 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,19 @@ int	seat_philos(t_data *data)
 	pthread_create(&monitor, NULL, &monitor_routine, data);
 	while (++i < data->nbr_philos)
 	{
+		pthread_mutex_init(&(data->philos[i].lock), NULL);
 		pthread_create(&(data->seats[i]), NULL, &philo_routine, &(data->philos[i]));
-		pthread_detach(data->seats[i]);
 	}
-	i = -1;
-	pthread_join(monitor, NULL);
+	if (pthread_join(monitor, NULL) == 0)
+		printf("Monitor thread joined\n");
 	i = -1;
 	while (++i < data->nbr_philos)
+	{
+		if (pthread_join(data->seats[i], NULL) == 0)
+			printf("Philosopher %d thread joined\n", i + 1);
 		pthread_mutex_destroy(&(data->forks[i]));
+		pthread_mutex_destroy(&(data->philos[i].lock));
+	}
 	pthread_mutex_destroy(&(data->print));
 	pthread_mutex_destroy(&(data->end));
 	return (0);

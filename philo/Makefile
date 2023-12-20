@@ -6,7 +6,7 @@
 #    By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/12 11:25:24 by damachad          #+#    #+#              #
-#    Updated: 2023/12/18 19:24:31 by damachad         ###   ########.fr        #
+#    Updated: 2023/12/20 14:25:12 by damachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ RM = rm -rf
 
 # -fsanitize=thread
 
-CFLAGS 	= -Wall -Werror -Wextra -pthread -g
+CFLAGS 	= -Wall -Werror -Wextra -pthread -fsanitize=thread -g -O1
 MK_FLAG = --no-print-directory
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ PATHS _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
