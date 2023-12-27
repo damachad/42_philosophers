@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:46:02 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/18 19:25:39 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:34:31 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_usleep(int time_in_ms)
 	long int	start;
 
 	start = get_time();
-	while (get_time() - start < time_in_ms)
+	while ((get_time() - start) < time_in_ms)
 		usleep(time_in_ms / 10);
 }
 

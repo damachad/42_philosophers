@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:42:03 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/20 16:02:15 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:48:45 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,16 @@ void	*check_routine(void *arg)
 			pthread_mutex_unlock(&(philo->data->end));
 			return (NULL);
 		}
+		pthread_mutex_lock(&(philo->lock));
 		if (philo->data->nbr_times_each_must_eat && philo->nbr_meals == philo->data->nbr_times_each_must_eat)
 		{
 			pthread_mutex_lock(&(philo->data->end));
 			philo->data->finished_philos++;
+			pthread_mutex_unlock(&(philo->lock));
 			pthread_mutex_unlock(&(philo->data->end));
 			return (NULL);
 		}
+		pthread_mutex_unlock(&(philo->lock));
 	}
 	return (NULL);
 }
@@ -55,7 +58,7 @@ void	even_fork(t_philo *philo)
 	pthread_mutex_lock(&(philo->lock));
 	philo->t_of_last_meal = get_time();
 	pthread_mutex_unlock(&(philo->lock));
-	ft_usleep(philo->data->t_eat * 1000);
+	usleep(philo->data->t_eat * 1000);
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
 }
@@ -72,7 +75,7 @@ void	odd_fork(t_philo *philo)
 	pthread_mutex_lock(&(philo->lock));
 	philo->t_of_last_meal = get_time();
 	pthread_mutex_unlock(&(philo->lock));
-	ft_usleep(philo->data->t_eat * 1000);
+	usleep(philo->data->t_eat * 1000);
 	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
 }
@@ -88,7 +91,7 @@ void	*philo_routine(void *arg)
 	while (1)
 	{
 		pthread_mutex_lock(&(philo->data->end));
-		if ((philo->data->dead_philo))
+		if ((philo->data->dead_philo) || (philo->data->finished_philos == philo->data->nbr_philos))
 		{
 			pthread_mutex_unlock(&(philo->data->end));
 			return (NULL);
@@ -99,7 +102,7 @@ void	*philo_routine(void *arg)
 		else
 			odd_fork(philo);
 		print_message(SLEEP, philo);
-		ft_usleep(philo->data->t_sleep * 1000);
+		usleep(philo->data->t_sleep * 1000);
 		print_message(THINK, philo);
 	}
 	return (NULL);
@@ -113,7 +116,7 @@ void	*monitor_routine(void *arg)
 	while (1)
 	{
 		pthread_mutex_lock(&(data->end));
-		if ((data->dead_philo))
+		if ((data->dead_philo) || (data->finished_philos == data->nbr_philos))
 		{
 			pthread_mutex_unlock(&(data->end));
 			return (NULL);

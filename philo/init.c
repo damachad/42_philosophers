@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:05:20 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/20 15:32:19 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:50:52 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,11 @@ int	seat_philos(t_data *data)
 		pthread_mutex_init(&(data->philos[i].lock), NULL);
 		pthread_create(&(data->seats[i]), NULL, &philo_routine, &(data->philos[i]));
 	}
-	if (pthread_join(monitor, NULL) == 0)
-		printf("Monitor thread joined\n");
+	pthread_join(monitor, NULL);
 	i = -1;
 	while (++i < data->nbr_philos)
 	{
-		if (pthread_join(data->seats[i], NULL) == 0)
-			printf("Philosopher %d thread joined\n", i + 1);
+		pthread_join(data->seats[i], NULL);
 		pthread_mutex_destroy(&(data->forks[i]));
 		pthread_mutex_destroy(&(data->philos[i].lock));
 	}
@@ -45,6 +43,7 @@ int	seat_philos(t_data *data)
 	return (0);
 }
 
+/* Initialize philos struct with id, forks and a pointer to data */
 void	init_philos(t_data *data)
 {
 	int	i;
