@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:15:11 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/28 11:12:20 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/28 15:20:20 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,18 @@ int			init_data(t_data **data, char **argv);
 void		ft_usleep(int time_in_ms);
 void		print_message(char *str, t_philo *philo);
 long int	get_time(void);
-int			ft_atoi(char *nptr);
+int			simple_atoi(char *nptr);
 void		*ft_calloc(size_t nitems, size_t size);
 
 void		print_data(t_data *data);
+
+// In utils2.c
+bool		is_all_digit(char **strs);
+bool		is_end(t_philo *philo);
 
 // In routine.c
 void		*philo_routine(void *arg);
 void		*monitor_routine(void *arg);
 
-// In main.c
-bool	is_end(t_philo *philo);
 
 #endif

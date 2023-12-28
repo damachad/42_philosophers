@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:05:20 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/28 10:54:03 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/28 15:18:40 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,16 @@ int	init_data(t_data **data, char **argv)
 	t_data	*tmp;
 
 	tmp = *data;
-	tmp->nbr_philos = ft_atoi(argv[1]);
-	tmp->t_die = ft_atoi(argv[2]);
-	tmp->t_eat = ft_atoi(argv[3]);
-	tmp->t_sleep = ft_atoi(argv[4]);
+	if (!is_all_digit(argv + 1))
+		return (1);
+	tmp->nbr_philos = simple_atoi(argv[1]);
+	tmp->t_die = simple_atoi(argv[2]);
+	tmp->t_eat = simple_atoi(argv[3]);
+	tmp->t_sleep = simple_atoi(argv[4]);
 	if (argv[5])
-		tmp->nbr_times_each_must_eat = ft_atoi(argv[5]);
+		tmp->nbr_times_each_must_eat = simple_atoi(argv[5]);
 	if (tmp->t_die < 60 || tmp->t_eat < 60 || tmp->t_sleep < 60 || \
-	tmp->nbr_philos < 1 || tmp->nbr_times_each_must_eat < 0 || \
+	tmp->nbr_philos < 1 || tmp->nbr_times_each_must_eat <= 0 || \
 	tmp->nbr_philos > 200)
 	{
 		free(data);

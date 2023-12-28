@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:46:02 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/28 11:13:31 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/28 15:10:07 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,26 +80,16 @@ long int	get_time(void)
 }
 
 /* Convert a char *str to an int */
-int	ft_atoi(char *nptr)
+int	simple_atoi(char *nptr)
 {
 	int	i;
-	int	sign;
 	int	result;
 
-	i = 0;
-	sign = 1;
+	i = -1;
 	result = 0;
-	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
-		i++;
-	if (nptr[i] == '-' || nptr[i] == '+')
-		if (nptr[i++] == '-')
-			sign *= -1;
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
+	while (nptr[++i])
 		result = result * 10 + (nptr[i] - '0');
-		i++;
-	}
-	return (sign * result);
+	return (result);
 }
 
 /* Allocate memory for nitems * size and set to '\0' */

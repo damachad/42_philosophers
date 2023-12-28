@@ -6,7 +6,7 @@
 #    By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/12 11:25:24 by damachad          #+#    #+#              #
-#    Updated: 2023/12/20 14:25:12 by damachad         ###   ########.fr        #
+#    Updated: 2023/12/28 15:17:57 by damachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,12 +37,15 @@ OBJ_DIR		= objs
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ FILES _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
 NAME 		= philo
-FILES 		= main init utils routine
+FILES 		= main init utils routine utils2
 SRC 		= $(addsuffix .c, $(FILES))
 OBJ 		= $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(FILES)))
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ ARGUMENTS _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
-ARGS = 6 800 200 200
+SIMPLE = 6 800 200 200
+N_DEFINED = 5 800 200 200 2
+DIE_TIME = 5 300 200 200
+INVALID = 3 800 200 200 a
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ RULES _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
 all: $(NAME)
@@ -69,9 +72,18 @@ fclean: clean
 re: fclean all
 
 test: $(NAME)
-	@./$(NAME) $(ARGS)
+	@./$(NAME) $(SIMPLE)
+
+test_neat: $(NAME)
+	@./$(NAME) $(N_DEFINED)
+	
+test_die: $(NAME)
+	@./$(NAME) $(DIE_TIME)
+
+test_invalid: $(NAME)
+	@./$(NAME) $(INVALID)
 
 gdb: $(NAME)
 	@gdb --args ./$(NAME) $(ARGS)
 
-.PHONY: all clean fclean re test gdb
+.PHONY: all clean fclean re test gdb test_neat test_die test_invalid
