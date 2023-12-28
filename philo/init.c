@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:05:20 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/27 17:50:52 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/28 10:54:03 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,7 @@ int	seat_philos(t_data *data)
 	pthread_join(monitor, NULL);
 	i = -1;
 	while (++i < data->nbr_philos)
-	{
 		pthread_join(data->seats[i], NULL);
-		pthread_mutex_destroy(&(data->forks[i]));
-		pthread_mutex_destroy(&(data->philos[i].lock));
-	}
-	pthread_mutex_destroy(&(data->print));
-	pthread_mutex_destroy(&(data->end));
 	return (0);
 }
 

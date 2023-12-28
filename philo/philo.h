@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:15:11 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/20 14:28:09 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/28 11:12:20 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,8 @@ void		print_data(t_data *data);
 // In routine.c
 void		*philo_routine(void *arg);
 void		*monitor_routine(void *arg);
+
+// In main.c
+bool	is_end(t_philo *philo);
 
 #endif

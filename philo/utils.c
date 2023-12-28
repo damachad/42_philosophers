@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:46:02 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/27 17:34:31 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/28 11:13:31 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ void	ft_usleep(int time_in_ms)
 void	print_message(char *str, t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->print);
+	if (is_end(philo))
+	{
+		pthread_mutex_unlock(&philo->data->print);
+		return ;
+	}
 	printf("%ld %d %s\n", get_time() - philo->data->t_of_start, philo->id, str);
 	pthread_mutex_unlock(&philo->data->print);
 }

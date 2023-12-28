@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:42:03 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/27 17:48:45 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/28 11:14:28 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	*check_routine(void *arg)
 		if (t > philo->data->t_die)
 		{
 			pthread_mutex_lock(&(philo->data->end));
-			print_message(DIE, philo);
+			if (!(philo->data->dead_philo))
+				print_message(DIE, philo);
 			philo->data->dead_philo = true;
 			pthread_mutex_unlock(&(philo->data->end));
 			return (NULL);
@@ -54,8 +55,8 @@ void	even_fork(t_philo *philo)
 	pthread_mutex_lock(philo->l_fork);
 	print_message(FORK, philo);
 	print_message(EAT, philo);
-	philo->nbr_meals++;
 	pthread_mutex_lock(&(philo->lock));
+	philo->nbr_meals++;
 	philo->t_of_last_meal = get_time();
 	pthread_mutex_unlock(&(philo->lock));
 	usleep(philo->data->t_eat * 1000);
@@ -71,8 +72,8 @@ void	odd_fork(t_philo *philo)
 	pthread_mutex_lock(philo->r_fork);
 	print_message(FORK, philo);
 	print_message(EAT, philo);
-	philo->nbr_meals++;
 	pthread_mutex_lock(&(philo->lock));
+	philo->nbr_meals++;
 	philo->t_of_last_meal = get_time();
 	pthread_mutex_unlock(&(philo->lock));
 	usleep(philo->data->t_eat * 1000);
@@ -90,13 +91,8 @@ void	*philo_routine(void *arg)
 	pthread_detach(philo->checker);
 	while (1)
 	{
-		pthread_mutex_lock(&(philo->data->end));
-		if ((philo->data->dead_philo) || (philo->data->finished_philos == philo->data->nbr_philos))
-		{
-			pthread_mutex_unlock(&(philo->data->end));
+		if (is_end(philo))
 			return (NULL);
-		}
-		pthread_mutex_unlock(&(philo->data->end));
 		if (philo->id % 2 == 0)
 			even_fork(philo);
 		else
