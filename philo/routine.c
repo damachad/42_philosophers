@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:42:03 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/28 11:14:28 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/31 11:09:42 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ void	*check_routine(void *arg)
 		{
 			pthread_mutex_lock(&(philo->data->end));
 			if (!(philo->data->dead_philo))
-				print_message(DIE, philo);
-			philo->data->dead_philo = true;
+			{
+				print_end_message(DIE, philo);
+				philo->data->dead_philo = true;
+			}
 			pthread_mutex_unlock(&(philo->data->end));
 			return (NULL);
 		}
@@ -51,8 +53,8 @@ void	*check_routine(void *arg)
 void	even_fork(t_philo *philo)
 {
 	pthread_mutex_lock(philo->r_fork);
-	print_message(FORK, philo);
 	pthread_mutex_lock(philo->l_fork);
+	print_message(FORK, philo);
 	print_message(FORK, philo);
 	print_message(EAT, philo);
 	pthread_mutex_lock(&(philo->lock));
@@ -68,8 +70,8 @@ void	even_fork(t_philo *philo)
 void	odd_fork(t_philo *philo)
 {
 	pthread_mutex_lock(philo->l_fork);
-	print_message(FORK, philo);
 	pthread_mutex_lock(philo->r_fork);
+	print_message(FORK, philo);
 	print_message(FORK, philo);
 	print_message(EAT, philo);
 	pthread_mutex_lock(&(philo->lock));
@@ -88,11 +90,13 @@ void	*philo_routine(void *arg)
 	philo = (t_philo *)arg;
 	philo->t_of_last_meal = get_time();
 	pthread_create(&(philo->checker), NULL, &check_routine, philo);
-	pthread_detach(philo->checker);
 	while (1)
 	{
 		if (is_end(philo))
+		{
+			pthread_join(philo->checker, NULL);
 			return (NULL);
+		}
 		if (philo->id % 2 == 0)
 			even_fork(philo);
 		else

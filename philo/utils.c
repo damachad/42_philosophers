@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:46:02 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/28 15:10:07 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/31 10:53:17 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,24 @@ void	ft_usleep(int time_in_ms)
 /* Print a message with current time and philo id */
 void	print_message(char *str, t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->print);
 	if (is_end(philo))
-	{
-		pthread_mutex_unlock(&philo->data->print);
 		return ;
-	}
+	pthread_mutex_lock(&philo->data->print);
 	printf("%ld %d %s\n", get_time() - philo->data->t_of_start, philo->id, str);
 	pthread_mutex_unlock(&philo->data->print);
+}
+
+/* Print a message with current time and philo id */
+void	print_end_message(char *str, t_philo *philo)
+{
+	static int	i;
+	
+	if (i > 0)
+		return ;
+	pthread_mutex_lock(&philo->data->print);
+	printf("%ld %d %s\n", get_time() - philo->data->t_of_start, philo->id, str);
+	pthread_mutex_unlock(&philo->data->print);
+	i++;
 }
 
 /* Returns current time in miliseconds since the Epoch */

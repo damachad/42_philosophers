@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:15:11 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/31 09:42:12 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/31 10:53:36 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int			init_data(t_data **data, char **argv);
 // In utils.c
 void		ft_usleep(int time_in_ms);
 void		print_message(char *str, t_philo *philo);
+void		print_end_message(char *str, t_philo *philo);
 long int	get_time(void);
 int			simple_atoi(char *nptr);
 void		*ft_calloc(size_t nitems, size_t size);
