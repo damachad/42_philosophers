@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:46:02 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/31 10:53:17 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/31 11:21:59 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ void	print_data(t_data *data)
 	print_philos(data->philos);
 }
 
-void	ft_usleep(int time_in_ms)
+void	ft_usleep(int time_in_us)
 {
 	long int	start;
 
 	start = get_time();
-	while ((get_time() - start) < time_in_ms)
-		usleep(time_in_ms / 10);
+	while ((get_time() - start) * 1000 < time_in_us)
+		usleep(time_in_us / 10);
 }
 
 /* Print a message with current time and philo id */

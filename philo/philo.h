@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:15:11 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/31 10:53:36 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/31 11:20:40 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int			seat_philos(t_data *data);
 int			init_data(t_data **data, char **argv);
 
 // In utils.c
-void		ft_usleep(int time_in_ms);
+void		ft_usleep(int time_in_us);
 void		print_message(char *str, t_philo *philo);
 void		print_end_message(char *str, t_philo *philo);
 long int	get_time(void);

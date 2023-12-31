@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:42:03 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/31 11:09:42 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/31 11:20:17 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	even_fork(t_philo *philo)
 	philo->nbr_meals++;
 	philo->t_of_last_meal = get_time();
 	pthread_mutex_unlock(&(philo->lock));
-	usleep(philo->data->t_eat * 1000);
+	ft_usleep(philo->data->t_eat * 1000);
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
 }
@@ -78,7 +78,7 @@ void	odd_fork(t_philo *philo)
 	philo->nbr_meals++;
 	philo->t_of_last_meal = get_time();
 	pthread_mutex_unlock(&(philo->lock));
-	usleep(philo->data->t_eat * 1000);
+	ft_usleep(philo->data->t_eat * 1000);
 	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
 }
@@ -102,7 +102,7 @@ void	*philo_routine(void *arg)
 		else
 			odd_fork(philo);
 		print_message(SLEEP, philo);
-		usleep(philo->data->t_sleep * 1000);
+		ft_usleep(philo->data->t_sleep * 1000);
 		print_message(THINK, philo);
 	}
 	return (NULL);
