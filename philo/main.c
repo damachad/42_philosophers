@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:01:23 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/28 15:02:37 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/31 09:33:22 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@ void	clean_data(t_data *data)
 	int	i;
 
 	i = -1;
-	while (++i < data->nbr_philos)
+	if (data->nbr_philos > 1)
 	{
-		pthread_mutex_destroy(&(data->forks[i]));
-		pthread_mutex_destroy(&(data->philos[i].lock));
+		while (++i < data->nbr_philos)
+		{
+			pthread_mutex_destroy(&(data->forks[i]));
+			pthread_mutex_destroy(&(data->philos[i].lock));
+		}
+		pthread_mutex_destroy(&(data->print));
+		pthread_mutex_destroy(&(data->end));
 	}
-	pthread_mutex_destroy(&(data->print));
-	pthread_mutex_destroy(&(data->end));
 	if (data->seats)
 		free(data->seats);
 	if (data->forks)
@@ -37,17 +40,21 @@ void	clean_data(t_data *data)
 int main(int argc, char **argv)
 {
 	t_data	*data;
-	
+
 	data = NULL;
 	if (argc == 5 || argc == 6)
 	{
 		data = ft_calloc(1, sizeof(t_data));
 		if (init_data(&data, argv))
 		{
+			free(data);
 			printf("Error: Invalid arguments\n");
 			return (1);
 		}
-		seat_philos(data);
+		if (data->nbr_philos == 1)
+			one_philo(data);
+		else
+			seat_philos(data);
 		clean_data(data);
 	}
 	else

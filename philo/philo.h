@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:15:11 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/28 15:20:20 by damachad         ###   ########.fr       */
+/*   Updated: 2023/12/31 09:42:12 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ void		print_data(t_data *data);
 // In utils2.c
 bool		is_all_digit(char **strs);
 bool		is_end(t_philo *philo);
+int			one_philo(t_data *data);
 
 // In routine.c
 void		*philo_routine(void *arg);
 void		*monitor_routine(void *arg);
-
 
 #endif
