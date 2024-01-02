@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:05:20 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/31 09:27:14 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/02 17:55:39 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,16 @@ int	seat_philos(t_data *data)
 	pthread_mutex_init(&(data->print), NULL);
 	pthread_mutex_init(&(data->end), NULL);
 	data->t_of_start = get_time();
-	pthread_create(&monitor, NULL, &monitor_routine, data);
+	if (data->nbr_times_each_must_eat > 0)
+		pthread_create(&monitor, NULL, &monitor_routine, data);
 	while (++i < data->nbr_philos)
 	{
 		pthread_mutex_init(&(data->philos[i].lock), NULL);
 		pthread_create(&(data->seats[i]), NULL, &philo_routine, &(data->philos[i]));
+		ft_usleep(1000);
 	}
-	pthread_join(monitor, NULL);
+	if (data->nbr_times_each_must_eat > 0)
+		pthread_join(monitor, NULL);
 	i = -1;
 	while (++i < data->nbr_philos)
 		pthread_join(data->seats[i], NULL);

@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:46:02 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/31 11:21:59 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/02 18:17:34 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_philos(t_philo *philos)
 	{
 		printf("Philosopher ID: %d\n", philos[i].id);
 		printf("Number of meals: %d\n", philos[i].nbr_meals);
-		printf("Time of last meal: %ld\n", philos[i].t_of_last_meal);
+		printf("Time to die: %ld\n", philos[i].t_to_die);
 		printf("Address of left fork %d: %p\n", i, (void *)(philos[i].l_fork));
 		printf("Address of right fork %d: %p\n", i, (void *)(philos[i].r_fork));
 		printf("\n");
@@ -57,7 +57,7 @@ void	ft_usleep(int time_in_us)
 }
 
 /* Print a message with current time and philo id */
-void	print_message(char *str, t_philo *philo)
+void	print_message_2(char *str, t_philo *philo)
 {
 	if (is_end(philo))
 		return ;
@@ -67,16 +67,19 @@ void	print_message(char *str, t_philo *philo)
 }
 
 /* Print a message with current time and philo id */
-void	print_end_message(char *str, t_philo *philo)
+void	print_message(char *str, t_philo *philo)
 {
-	static int	i;
-	
-	if (i > 0)
-		return ;
 	pthread_mutex_lock(&philo->data->print);
-	printf("%ld %d %s\n", get_time() - philo->data->t_of_start, philo->id, str);
+	if (!ft_strcmp(DIE, str) && !philo->data->dead_philo)
+	{
+		printf("%ld %d %s\n", get_time() - philo->data->t_of_start, philo->id, str);
+		pthread_mutex_lock(&philo->data->end);
+		philo->data->dead_philo = true;
+		pthread_mutex_unlock(&philo->data->end);
+	}
+	if (!philo->data->dead_philo)
+		printf("%ld %d %s\n", get_time() - philo->data->t_of_start, philo->id, str);
 	pthread_mutex_unlock(&philo->data->print);
-	i++;
 }
 
 /* Returns current time in miliseconds since the Epoch */

@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:15:11 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/31 11:20:40 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/02 18:17:03 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct philo
 	struct s_data	*data;
 	int				id;
 	int				nbr_meals;
-	long int		t_of_last_meal;
+	long int		t_to_die;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	lock;
@@ -85,6 +85,7 @@ void		print_data(t_data *data);
 bool		is_all_digit(char **strs);
 bool		is_end(t_philo *philo);
 int			one_philo(t_data *data);
+int			ft_strcmp(char *s1, char *s2);
 
 // In routine.c
 void		*philo_routine(void *arg);

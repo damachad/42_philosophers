@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 14:57:52 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/31 09:41:52 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/02 17:26:05 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,15 @@ int	one_philo(t_data *data)
 	usleep(data->t_die * 1000);
 	printf("%ld 1 %s\n", get_time() - data->t_of_start, DIE);
 	return (0);	
+}
+
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	size_t	i;
+
+	i = 0;
+	while ((s1[i] == s2[i]) && (s1[i] != '\0') && (s2[i] != '\0'))
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
