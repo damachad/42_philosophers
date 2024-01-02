@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:46:02 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/02 18:17:34 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/02 18:25:37 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	print_message(char *str, t_philo *philo)
 		philo->data->dead_philo = true;
 		pthread_mutex_unlock(&philo->data->end);
 	}
-	if (!philo->data->dead_philo)
+	if (!is_end(philo))
 		printf("%ld %d %s\n", get_time() - philo->data->t_of_start, philo->id, str);
 	pthread_mutex_unlock(&philo->data->print);
 }

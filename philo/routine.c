@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:42:03 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/02 18:14:12 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/02 18:24:12 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	*monitor_routine(void *arg)
 		pthread_mutex_lock(&(data->end));
 		if ((data->finished_philos == data->nbr_philos))
 		{
+			data->dead_philo = true;
 			pthread_mutex_unlock(&(data->end));
 			return (NULL);
 		}
