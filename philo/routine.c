@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:42:03 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/03 15:25:42 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/03 15:45:54 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ void	*check_routine(void *arg)
 		pthread_mutex_lock(&(philo->lock));
 		if (philo->full_t_die <= get_time())
 			print_message(DIE, philo);
-		if (philo->data->nbr_t_eat && philo->nbr_meals == philo->data->nbr_t_eat)
+		if (philo->data->nbr_t_eat && philo->nbr_meals == philo->data->nbr_t_eat\
+			&& !philo->full)
 		{
+			philo->full = true;
 			pthread_mutex_lock(&(philo->data->end));
 			philo->data->finished_philos++;
 			pthread_mutex_unlock(&(philo->data->end));
@@ -48,8 +50,8 @@ void	eat(t_philo *philo, pthread_mutex_t *f1, pthread_mutex_t *f2)
 	pthread_mutex_lock(f2);
 	print_message(FORK, philo);
 	pthread_mutex_lock(&(philo->lock));
-	philo->nbr_meals++;
 	print_message(EAT, philo);
+	philo->nbr_meals++;
 	philo->full_t_die = philo->data->t_die + get_time();
 	ft_usleep(philo->data->t_eat * 1000);
 	pthread_mutex_unlock(&(philo->lock));
