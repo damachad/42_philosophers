@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:42:03 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/02 18:24:12 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/03 15:25:42 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	*check_routine(void *arg)
 	while (!is_end(philo))
 	{
 		pthread_mutex_lock(&(philo->lock));
-		if (get_time() >= philo->t_to_die)
+		if (philo->full_t_die <= get_time())
 			print_message(DIE, philo);
-		if (philo->data->nbr_times_each_must_eat && philo->nbr_meals == philo->data->nbr_times_each_must_eat)
+		if (philo->data->nbr_t_eat && philo->nbr_meals == philo->data->nbr_t_eat)
 		{
 			pthread_mutex_lock(&(philo->data->end));
 			philo->data->finished_philos++;
@@ -33,38 +33,34 @@ void	*check_routine(void *arg)
 	return (NULL);
 }
 
-/* Start by picking up right fork */
-void	even_fork(t_philo *philo)
+void	eat(t_philo *philo, pthread_mutex_t *f1, pthread_mutex_t *f2)
 {
-	pthread_mutex_lock(philo->r_fork);
+	// int	id;
+	// id = philo->id - 1;
+	// if (odd && id != philo->data->nbr_philos - 1)
+	// 	pthread_mutex_lock(&(philo->data->philos[id + 1].lock));
+	// else if (odd && id == philo->data->nbr_philos - 1)
+	// 	pthread_mutex_lock(&(philo->data->philos[0].lock));
+	// else
+	// 	pthread_mutex_lock(&(philo->data->philos[id - 1].lock));
+	pthread_mutex_lock(f1);
 	print_message(FORK, philo);
-	pthread_mutex_lock(philo->l_fork);
+	pthread_mutex_lock(f2);
 	print_message(FORK, philo);
-	print_message(EAT, philo);
 	pthread_mutex_lock(&(philo->lock));
-	philo->t_to_die = philo->data->t_die + get_time();
 	philo->nbr_meals++;
+	print_message(EAT, philo);
+	philo->full_t_die = philo->data->t_die + get_time();
 	ft_usleep(philo->data->t_eat * 1000);
 	pthread_mutex_unlock(&(philo->lock));
-	pthread_mutex_unlock(philo->r_fork);
-	pthread_mutex_unlock(philo->l_fork);
-}
-
-/* Start by picking up left fork */
-void	odd_fork(t_philo *philo)
-{
-	pthread_mutex_lock(philo->l_fork);
-	print_message(FORK, philo);
-	pthread_mutex_lock(philo->r_fork);
-	print_message(FORK, philo);
-	print_message(EAT, philo);
-	pthread_mutex_lock(&(philo->lock));
-	philo->t_to_die = philo->data->t_die + get_time();
-	philo->nbr_meals++;
-	ft_usleep(philo->data->t_eat * 1000);
-	pthread_mutex_unlock(&(philo->lock));
-	pthread_mutex_unlock(philo->l_fork);
-	pthread_mutex_unlock(philo->r_fork);
+	pthread_mutex_unlock(f1);
+	pthread_mutex_unlock(f2);
+	// if (odd && id != philo->data->nbr_philos - 1)
+	// 	pthread_mutex_unlock(&(philo->data->philos[id + 1].lock));
+	// else if (odd && id == philo->data->nbr_philos - 1)
+	// 	pthread_mutex_unlock(&(philo->data->philos[0].lock));
+	// else
+	// 	pthread_mutex_unlock(&(philo->data->philos[id - 1].lock));
 }
 
 void	*philo_routine(void *arg)
@@ -72,14 +68,17 @@ void	*philo_routine(void *arg)
 	t_philo		*philo;
 
 	philo = (t_philo *)arg;
-	philo->t_to_die = philo->data->t_die + get_time();
+	philo->full_t_die = philo->data->t_die + get_time();
 	pthread_create(&(philo->checker), NULL, &check_routine, philo);
 	while (!is_end(philo))
 	{
 		if (philo->id % 2 == 0)
-			even_fork(philo);
+			eat(philo, philo->l_fork, philo->r_fork);
 		else
-			odd_fork(philo);
+		{
+			ft_usleep(philo->data->t_eat * 1000 / 2);
+			eat(philo, philo->r_fork, philo->l_fork);
+		}
 		print_message(SLEEP, philo);
 		ft_usleep(philo->data->t_sleep * 1000);
 		print_message(THINK, philo);
@@ -93,7 +92,7 @@ void	*monitor_routine(void *arg)
 	t_data		*data;
 
 	data = (t_data *)arg;
-	while (data->dead_philo == false)
+	while (!data->dead_philo)
 	{
 		pthread_mutex_lock(&(data->end));
 		if ((data->finished_philos == data->nbr_philos))

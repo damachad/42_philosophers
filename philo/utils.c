@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:46:02 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/02 18:25:37 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/03 15:36:56 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_philos(t_philo *philos)
 	{
 		printf("Philosopher ID: %d\n", philos[i].id);
 		printf("Number of meals: %d\n", philos[i].nbr_meals);
-		printf("Time to die: %ld\n", philos[i].t_to_die);
+		printf("Time to die: %ld\n", philos[i].full_t_die);
 		printf("Address of left fork %d: %p\n", i, (void *)(philos[i].l_fork));
 		printf("Address of right fork %d: %p\n", i, (void *)(philos[i].r_fork));
 		printf("\n");
@@ -38,7 +38,7 @@ void	print_data(t_data *data)
 	printf("Time to die: %d\n", data->t_die);
 	printf("Time to eat: %d\n", data->t_eat);
 	printf("Time to sleep: %d\n", data->t_sleep);
-	printf("Number of times each philosopher must eat: %d\n", data->nbr_times_each_must_eat);
+	printf("Number of times each philosopher must eat: %d\n", data->nbr_t_eat);
 	printf("Finished philosophers: %d\n", data->finished_philos);
 	printf("Time of start: %ld\n", data->t_of_start);
 	while (++i < data->nbr_philos)
@@ -54,16 +54,6 @@ void	ft_usleep(int time_in_us)
 	start = get_time();
 	while ((get_time() - start) * 1000 < time_in_us)
 		usleep(time_in_us / 10);
-}
-
-/* Print a message with current time and philo id */
-void	print_message_2(char *str, t_philo *philo)
-{
-	if (is_end(philo))
-		return ;
-	pthread_mutex_lock(&philo->data->print);
-	printf("%ld %d %s\n", get_time() - philo->data->t_of_start, philo->id, str);
-	pthread_mutex_unlock(&philo->data->print);
 }
 
 /* Print a message with current time and philo id */

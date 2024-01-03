@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:15:11 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/02 18:17:03 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/03 14:44:19 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 // Macros
 
-# define ERROR_ARGS "Usage: ./philo nbr_philos t_die t_eat t_sleep [nbr_times_each_must_eat]\n"
+# define ERROR_ARGS "Usage: ./philo nbr_philos t_die t_eat t_sleep [nbr_t_eat]\n"
 
 # define FORK "has taken a fork"
 # define EAT "is eating"
@@ -40,7 +40,7 @@ typedef struct philo
 	struct s_data	*data;
 	int				id;
 	int				nbr_meals;
-	long int		t_to_die;
+	long int		full_t_die;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	lock;
@@ -53,7 +53,7 @@ typedef struct	s_data
 	int					t_die;
 	int					t_eat;
 	int					t_sleep;
-	int					nbr_times_each_must_eat;
+	int					nbr_t_eat;
 	int					finished_philos;
 	long int			t_of_start;
 	bool				dead_philo;
@@ -74,7 +74,6 @@ int			init_data(t_data **data, char **argv);
 // In utils.c
 void		ft_usleep(int time_in_us);
 void		print_message(char *str, t_philo *philo);
-void		print_end_message(char *str, t_philo *philo);
 long int	get_time(void);
 int			simple_atoi(char *nptr);
 void		*ft_calloc(size_t nitems, size_t size);

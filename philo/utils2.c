@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 14:57:52 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/02 17:26:05 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/03 14:32:54 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	is_all_digit(char **strs)
 bool	is_end(t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->data->end));
-	if ((philo->data->dead_philo) || (philo->data->finished_philos == philo->data->nbr_philos))
+	if ((philo->data->dead_philo) || (philo->data->finished_philos >= philo->data->nbr_philos))
 	{
 		pthread_mutex_unlock(&(philo->data->end));
 		return (true);
