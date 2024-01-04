@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:42:03 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/03 15:45:54 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/04 14:12:59 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,6 @@ void	*check_routine(void *arg)
 
 void	eat(t_philo *philo, pthread_mutex_t *f1, pthread_mutex_t *f2)
 {
-	// int	id;
-	// id = philo->id - 1;
-	// if (odd && id != philo->data->nbr_philos - 1)
-	// 	pthread_mutex_lock(&(philo->data->philos[id + 1].lock));
-	// else if (odd && id == philo->data->nbr_philos - 1)
-	// 	pthread_mutex_lock(&(philo->data->philos[0].lock));
-	// else
-	// 	pthread_mutex_lock(&(philo->data->philos[id - 1].lock));
 	pthread_mutex_lock(f1);
 	print_message(FORK, philo);
 	pthread_mutex_lock(f2);
@@ -57,12 +49,6 @@ void	eat(t_philo *philo, pthread_mutex_t *f1, pthread_mutex_t *f2)
 	pthread_mutex_unlock(&(philo->lock));
 	pthread_mutex_unlock(f1);
 	pthread_mutex_unlock(f2);
-	// if (odd && id != philo->data->nbr_philos - 1)
-	// 	pthread_mutex_unlock(&(philo->data->philos[id + 1].lock));
-	// else if (odd && id == philo->data->nbr_philos - 1)
-	// 	pthread_mutex_unlock(&(philo->data->philos[0].lock));
-	// else
-	// 	pthread_mutex_unlock(&(philo->data->philos[id - 1].lock));
 }
 
 void	*philo_routine(void *arg)
@@ -94,7 +80,7 @@ void	*monitor_routine(void *arg)
 	t_data		*data;
 
 	data = (t_data *)arg;
-	while (!data->dead_philo)
+	while (!is_end(data->philos))
 	{
 		pthread_mutex_lock(&(data->end));
 		if ((data->finished_philos == data->nbr_philos))
