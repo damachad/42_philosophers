@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:15:11 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/03 15:45:06 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/04 14:22:36 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 // Macros
 
-# define ERROR_ARGS "Usage: ./philo nbr_philos t_die t_eat t_sleep [nbr_t_eat]\n"
+# define ERROR_ARGS "Usage: ./philo n_philos t_die t_eat t_sleep [x_meals]\n"
 
 # define FORK "has taken a fork"
 # define EAT "is eating"
@@ -48,7 +48,7 @@ typedef struct philo
 	pthread_t		checker;
 }					t_philo;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	int					nbr_philos;
 	int					t_die;
@@ -88,7 +88,7 @@ int			one_philo(t_data *data);
 int			ft_strcmp(char *s1, char *s2);
 
 // In routine.c
-void		*philo_routine(void *arg);
+void		*ph_routine(void *arg);
 void		*monitor_routine(void *arg);
 
 #endif

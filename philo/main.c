@@ -6,11 +6,11 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:01:23 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/31 09:33:22 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/04 14:25:23 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philo.h"
+#include "philo.h"
 
 void	clean_data(t_data *data)
 {
@@ -37,7 +37,7 @@ void	clean_data(t_data *data)
 		free(data);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_data	*data;
 

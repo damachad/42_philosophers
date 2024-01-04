@@ -6,46 +6,11 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:46:02 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/04 13:36:24 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/04 14:29:35 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	print_philos(t_philo *philos)
-{
-	int	i;
-
-	i = -1;
-	while (++i < philos->data->nbr_philos)
-	{
-		printf("Philosopher ID: %d\n", philos[i].id);
-		printf("Number of meals: %d\n", philos[i].nbr_meals);
-		printf("Time to die: %ld\n", philos[i].full_t_die);
-		printf("Address of left fork %d: %p\n", i, (void *)(philos[i].l_fork));
-		printf("Address of right fork %d: %p\n", i, (void *)(philos[i].r_fork));
-		printf("\n");
-	}
-}
-
-/* Testing function to print contents of t_data */
-void	print_data(t_data *data)
-{
-	int	i;
-
-	i = -1;
-	printf("Number of philosophers: %d\n", data->nbr_philos);
-	printf("Time to die: %d\n", data->t_die);
-	printf("Time to eat: %d\n", data->t_eat);
-	printf("Time to sleep: %d\n", data->t_sleep);
-	printf("Number of times each philosopher must eat: %d\n", data->nbr_t_eat);
-	printf("Finished philosophers: %d\n", data->finished_philos);
-	printf("Time of start: %ld\n", data->t_of_start);
-	while (++i < data->nbr_philos)
-		printf("Address of fork %d: %p\n", i, &(data->forks[i]));
-	printf("\n");
-	print_philos(data->philos);
-}
 
 void	ft_usleep(int time_in_us)
 {
@@ -57,19 +22,19 @@ void	ft_usleep(int time_in_us)
 }
 
 /* Print a message with current time and philo id */
-void	print_message(char *str, t_philo *philo)
+void	print_message(char *str, t_philo *ph)
 {
-	pthread_mutex_lock(&philo->data->print);
-	if (!ft_strcmp(DIE, str) && !is_end(philo))
+	pthread_mutex_lock(&ph->data->print);
+	if (!ft_strcmp(DIE, str) && !is_end(ph))
 	{
-		printf("%ld %d %s\n", get_time() - philo->data->t_of_start, philo->id, str);
-		pthread_mutex_lock(&philo->data->end);
-		philo->data->dead_philo = true;
-		pthread_mutex_unlock(&philo->data->end);
+		printf("%ld %d %s\n", get_time() - ph->data->t_of_start, ph->id, str);
+		pthread_mutex_lock(&ph->data->end);
+		ph->data->dead_philo = true;
+		pthread_mutex_unlock(&ph->data->end);
 	}
-	if (!is_end(philo))
-		printf("%ld %d %s\n", get_time() - philo->data->t_of_start, philo->id, str);
-	pthread_mutex_unlock(&philo->data->print);
+	if (!is_end(ph))
+		printf("%ld %d %s\n", get_time() - ph->data->t_of_start, ph->id, str);
+	pthread_mutex_unlock(&ph->data->print);
 }
 
 /* Returns current time in miliseconds since the Epoch */
@@ -106,3 +71,38 @@ void	*ft_calloc(size_t nitems, size_t size)
 	memset(ptr, '\0', nitems * size);
 	return (ptr);
 }
+
+// void	print_philos(t_philo *philos)
+// {
+// 	int	i;
+
+// 	i = -1;
+// 	while (++i < philos->data->nbr_philos)
+// 	{
+// 		printf("Philosopher ID: %d\n", philos[i].id);
+// 		printf("Number of meals: %d\n", philos[i].nbr_meals);
+// 		printf("Time to die: %ld\n", philos[i].full_t_die);
+// 		printf("Address of left fork %d: %p\n", i, (void *)(philos[i].l_fork));
+// 		printf("Address of right fork %d: %p\n", i, (void *)(philos[i].r_fork));
+// 		printf("\n");
+// 	}
+// }
+
+/* Testing function to print contents of t_data */
+// void	print_data(t_data *data)
+// {
+// 	int	i;
+
+// 	i = -1;
+// 	printf("Number of philosophers: %d\n", data->nbr_philos);
+// 	printf("Time to die: %d\n", data->t_die);
+// 	printf("Time to eat: %d\n", data->t_eat);
+// 	printf("Time to sleep: %d\n", data->t_sleep);
+// 	printf("Number of times each philosopher must eat: %d\n", data->nbr_t_eat);
+// 	printf("Finished philosophers: %d\n", data->finished_philos);
+// 	printf("Time of start: %ld\n", data->t_of_start);
+// 	while (++i < data->nbr_philos)
+// 		printf("Address of fork %d: %p\n", i, &(data->forks[i]));
+// 	printf("\n");
+// 	print_philos(data->philos);
+// }

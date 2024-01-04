@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:42:03 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/04 14:12:59 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/04 14:27:33 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 void	*check_routine(void *arg)
 {
-	t_philo		*philo;
-	
-	philo = (t_philo *)arg;
-	while (!is_end(philo))
+	t_philo		*ph;
+
+	ph = (t_philo *)arg;
+	while (!is_end(ph))
 	{
-		pthread_mutex_lock(&(philo->lock));
-		if (philo->full_t_die <= get_time())
-			print_message(DIE, philo);
-		if (philo->data->nbr_t_eat && philo->nbr_meals == philo->data->nbr_t_eat\
-			&& !philo->full)
+		pthread_mutex_lock(&(ph->lock));
+		if (ph->full_t_die <= get_time())
+			print_message(DIE, ph);
+		if (ph->data->nbr_t_eat && ph->nbr_meals == ph->data->nbr_t_eat \
+		&& !ph->full)
 		{
-			philo->full = true;
-			pthread_mutex_lock(&(philo->data->end));
-			philo->data->finished_philos++;
-			pthread_mutex_unlock(&(philo->data->end));
+			ph->full = true;
+			pthread_mutex_lock(&(ph->data->end));
+			ph->data->finished_philos++;
+			pthread_mutex_unlock(&(ph->data->end));
 		}
-		pthread_mutex_unlock(&(philo->lock));
+		pthread_mutex_unlock(&(ph->lock));
 	}
 	return (NULL);
 }
@@ -51,7 +51,7 @@ void	eat(t_philo *philo, pthread_mutex_t *f1, pthread_mutex_t *f2)
 	pthread_mutex_unlock(f2);
 }
 
-void	*philo_routine(void *arg)
+void	*ph_routine(void *arg)
 {
 	t_philo		*philo;
 
