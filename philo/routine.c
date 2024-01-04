@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:42:03 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/04 14:27:33 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/04 15:13:30 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	eat(t_philo *philo, pthread_mutex_t *f1, pthread_mutex_t *f2)
 	pthread_mutex_lock(&(philo->lock));
 	print_message(EAT, philo);
 	philo->nbr_meals++;
-	philo->full_t_die = philo->data->t_die + get_time();
 	ft_usleep(philo->data->t_eat * 1000);
+	philo->full_t_die = philo->data->t_die + get_time();
 	pthread_mutex_unlock(&(philo->lock));
 	pthread_mutex_unlock(f1);
 	pthread_mutex_unlock(f2);
@@ -57,6 +57,9 @@ void	*ph_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	philo->full_t_die = philo->data->t_die + get_time();
+	if (philo->data->nbr_philos == 1)
+		return (one_philo(philo->data));
+	set_start_time(philo);
 	pthread_create(&(philo->checker), NULL, &check_routine, philo);
 	while (!is_end(philo))
 	{

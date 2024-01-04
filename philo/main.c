@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:01:23 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/04 14:25:23 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/04 14:49:48 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,7 @@ int	main(int argc, char **argv)
 			printf("Error: Invalid arguments\n");
 			return (1);
 		}
-		if (data->nbr_philos == 1)
-			one_philo(data);
-		else
-			seat_philos(data);
+		seat_philos(data);
 		clean_data(data);
 	}
 	else

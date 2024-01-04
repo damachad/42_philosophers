@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:15:11 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/04 14:22:36 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/04 15:13:23 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_data
 // In init.c
 int			seat_philos(t_data *data);
 int			init_data(t_data **data, char **argv);
+void		set_start_time(t_philo *philo);
 
 // In utils.c
 void		ft_usleep(int time_in_us);
@@ -79,12 +80,12 @@ long int	get_time(void);
 int			simple_atoi(char *nptr);
 void		*ft_calloc(size_t nitems, size_t size);
 
-void		print_data(t_data *data);
+//void		print_data(t_data *data);
 
 // In utils2.c
 bool		is_all_digit(char **strs);
 bool		is_end(t_philo *philo);
-int			one_philo(t_data *data);
+void		*one_philo(t_data *data);
 int			ft_strcmp(char *s1, char *s2);
 
 // In routine.c

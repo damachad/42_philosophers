@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 14:57:52 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/04 14:24:52 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/04 14:51:27 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ bool	is_end(t_philo *philo)
 	return (false);
 }
 
-int	one_philo(t_data *data)
+void	*one_philo(t_data *data)
 {
 	data->t_of_start = get_time();
 	printf("%ld 1 %s\n", get_time() - data->t_of_start, FORK);
 	usleep(data->t_die * 1000);
 	printf("%ld 1 %s\n", get_time() - data->t_of_start, DIE);
-	return (0);
+	return (NULL);
 }
 
 int	ft_strcmp(char *s1, char *s2)
