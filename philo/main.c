@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:01:23 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/04 14:49:48 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/06 13:05:00 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ void	clean_data(t_data *data)
 		while (++i < data->nbr_philos)
 		{
 			pthread_mutex_destroy(&(data->forks[i]));
-			pthread_mutex_destroy(&(data->philos[i].lock));
+			pthread_mutex_destroy(&(data->philos[i].full_t_die_lock));
 		}
 		pthread_mutex_destroy(&(data->print));
-		pthread_mutex_destroy(&(data->end));
+		pthread_mutex_destroy(&(data->fin_philos_lock));
+		pthread_mutex_destroy(&(data->dead_philo_lock));
 	}
 	if (data->seats)
 		free(data->seats);

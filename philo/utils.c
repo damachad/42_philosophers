@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:46:02 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/06 11:37:59 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/05 16:07:13 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,6 @@ void	ft_usleep(int time_in_us)
 void	print_message(char *str, t_philo *ph)
 {
 	pthread_mutex_lock(&ph->data->print);
-	if (!ft_strcmp(DIE, str) && !is_end(ph))
-	{
-		printf("%ld %d %s\n", get_time() - ph->data->t_of_start, ph->id, str);
-		pthread_mutex_lock(&ph->data->end);
-		ph->data->dead_philo = true;
-		pthread_mutex_unlock(&ph->data->end);
-	}
 	if (!is_end(ph))
 		printf("%ld %d %s\n", get_time() - ph->data->t_of_start, ph->id, str);
 	pthread_mutex_unlock(&ph->data->print);

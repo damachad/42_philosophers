@@ -6,45 +6,38 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:05:20 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/04 15:13:18 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/06 13:04:56 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	set_start_time(t_philo *philo)
-{
-	static bool	once;
-
-	pthread_mutex_lock(&philo->data->end);
-	if (!once)
-	{
-		once = true;
-		philo->data->t_of_start = get_time();
-	}
-	pthread_mutex_unlock(&philo->data->end);
-}
-
 int	seat_philos(t_data *d)
 {
 	int				i;
-	pthread_t		monitor;
+	pthread_t		monitor1;
+	pthread_t		monitor2;
 
 	i = -1;
 	while (++i < d->nbr_philos)
 		pthread_mutex_init(&(d->forks[i]), NULL);
 	i = -1;
 	pthread_mutex_init(&(d->print), NULL);
-	pthread_mutex_init(&(d->end), NULL);
+	pthread_mutex_init(&(d->fin_philos_lock), NULL);
+	pthread_mutex_init(&(d->dead_philo_lock), NULL);
+	d->t_of_start = get_time();
 	if (d->nbr_t_eat > 0)
-		pthread_create(&monitor, NULL, &monitor_routine, d);
+		pthread_create(&monitor2, NULL, &monitor2_routine, d);
 	while (++i < d->nbr_philos)
 	{
-		pthread_mutex_init(&(d->philos[i].lock), NULL);
+		pthread_mutex_init(&(d->philos[i].full_t_die_lock), NULL);
 		pthread_create(&(d->seats[i]), NULL, &ph_routine, &(d->philos[i]));
 	}
+	usleep(10);
+	pthread_create(&monitor1, NULL, &monitor1_routine, d);
+	pthread_join(monitor1, NULL);
 	if (d->nbr_t_eat > 0)
-		pthread_join(monitor, NULL);
+		pthread_join(monitor2, NULL);
 	i = -1;
 	while (++i < d->nbr_philos)
 		pthread_join(d->seats[i], NULL);

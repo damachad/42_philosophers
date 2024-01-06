@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:15:11 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/04 15:13:23 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/06 13:05:13 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ typedef struct philo
 	int				nbr_meals;
 	long int		full_t_die;
 	bool			full;
+	pthread_mutex_t	full_t_die_lock;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
-	pthread_mutex_t	lock;
 	pthread_t		checker;
 }					t_philo;
 
@@ -60,10 +60,10 @@ typedef struct s_data
 	bool				dead_philo;
 	t_philo				*philos;
 	pthread_t			*seats;
-	pthread_t			monitor;
+	pthread_mutex_t		fin_philos_lock;
+	pthread_mutex_t		dead_philo_lock;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		print;
-	pthread_mutex_t		end;
 }						t_data;
 
 // Prototypes
@@ -71,7 +71,6 @@ typedef struct s_data
 // In init.c
 int			seat_philos(t_data *data);
 int			init_data(t_data **data, char **argv);
-void		set_start_time(t_philo *philo);
 
 // In utils.c
 void		ft_usleep(int time_in_us);
@@ -90,6 +89,16 @@ int			ft_strcmp(char *s1, char *s2);
 
 // In routine.c
 void		*ph_routine(void *arg);
-void		*monitor_routine(void *arg);
+void		*monitor1_routine(void *arg);
+void		*monitor2_routine(void *arg);
+
+// In divide_later.c
+void		update_full_t_die(t_philo *philo);
+long int	get_full_t_die(t_philo *philo);
+int			get_fin_philos(t_data *data);
+void		update_fin_philos(t_data *data);
+void		update_dead_philo(t_data *data);
+bool		get_dead_philo(t_data *data);
+bool		philo_died(t_philo *philo);
 
 #endif
