@@ -6,7 +6,7 @@
 #    By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/12 11:25:24 by damachad          #+#    #+#              #
-#    Updated: 2024/01/06 14:23:32 by damachad         ###   ########.fr        #
+#    Updated: 2024/01/06 17:07:59 by damachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,9 +46,12 @@ OBJ 		= $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(FILES)))
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ ARGUMENTS _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
 
-SIMPLE = 6 800 200 200
-N_DEFINED = 5 800 200 200 2
-DIE_TIME = 5 300 200 200
+# If even philos, t_die = t_eat * 2 + 10 && t_sleep <= t_eat
+# If odd philos, t_die = t_eat * 2 + t_sleep + 10 && t_sleep <= t_eat
+
+SIMPLE = 199 520 200 100
+N_DEFINED = 9 800 200 200 2
+DIE_TIME = 99 300 200 200
 INVALID = 3 800 200 200 a
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ RULES _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #

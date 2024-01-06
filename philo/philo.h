@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:15:11 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/06 13:05:13 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/06 15:29:57 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@
 # define EAT "is eating"
 # define SLEEP "is sleeping"
 # define THINK "is thinking"
-# define DIE "died"
+# define DIE "\033[0;31mdied\033[0m"
+
+# define RED "\033[0;31m"
+# define RESET "\033[0m"
 
 // Structures
 
