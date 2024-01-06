@@ -6,40 +6,52 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:05:20 by damachad          #+#    #+#             */
-/*   Updated: 2023/12/18 18:57:39 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/04 15:13:18 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	seat_philos(t_data *data)
+void	set_start_time(t_philo *philo)
+{
+	static bool	once;
+
+	pthread_mutex_lock(&philo->data->end);
+	if (!once)
+	{
+		once = true;
+		philo->data->t_of_start = get_time();
+	}
+	pthread_mutex_unlock(&philo->data->end);
+}
+
+int	seat_philos(t_data *d)
 {
 	int				i;
 	pthread_t		monitor;
 
 	i = -1;
-	while (++i < data->nbr_philos)
-		pthread_mutex_init(&(data->forks[i]), NULL);
+	while (++i < d->nbr_philos)
+		pthread_mutex_init(&(d->forks[i]), NULL);
 	i = -1;
-	pthread_mutex_init(&(data->print), NULL);
-	pthread_mutex_init(&(data->end), NULL);
-	data->t_of_start = get_time();
-	pthread_create(&monitor, NULL, &monitor_routine, data);
-	while (++i < data->nbr_philos)
+	pthread_mutex_init(&(d->print), NULL);
+	pthread_mutex_init(&(d->end), NULL);
+	if (d->nbr_t_eat > 0)
+		pthread_create(&monitor, NULL, &monitor_routine, d);
+	while (++i < d->nbr_philos)
 	{
-		pthread_create(&(data->seats[i]), NULL, &philo_routine, &(data->philos[i]));
-		pthread_detach(data->seats[i]);
+		pthread_mutex_init(&(d->philos[i].lock), NULL);
+		pthread_create(&(d->seats[i]), NULL, &ph_routine, &(d->philos[i]));
 	}
+	if (d->nbr_t_eat > 0)
+		pthread_join(monitor, NULL);
 	i = -1;
-	pthread_join(monitor, NULL);
-	i = -1;
-	while (++i < data->nbr_philos)
-		pthread_mutex_destroy(&(data->forks[i]));
-	pthread_mutex_destroy(&(data->print));
-	pthread_mutex_destroy(&(data->end));
+	while (++i < d->nbr_philos)
+		pthread_join(d->seats[i], NULL);
 	return (0);
 }
 
+/* Initialize philos struct with id, forks and a pointer to data */
 void	init_philos(t_data *data)
 {
 	int	i;
@@ -65,19 +77,18 @@ int	init_data(t_data **data, char **argv)
 	t_data	*tmp;
 
 	tmp = *data;
-	tmp->nbr_philos = ft_atoi(argv[1]);
-	tmp->t_die = ft_atoi(argv[2]);
-	tmp->t_eat = ft_atoi(argv[3]);
-	tmp->t_sleep = ft_atoi(argv[4]);
-	if (argv[5])
-		tmp->nbr_times_each_must_eat = ft_atoi(argv[5]);
-	if (tmp->t_die < 60 || tmp->t_eat < 60 || tmp->t_sleep < 60 || \
-	tmp->nbr_philos < 1 || tmp->nbr_times_each_must_eat < 0 || \
-	tmp->nbr_philos > 200)
-	{
-		free(data);
+	if (!is_all_digit(argv + 1))
 		return (1);
-	}
+	tmp->nbr_philos = simple_atoi(argv[1]);
+	tmp->t_die = simple_atoi(argv[2]);
+	tmp->t_eat = simple_atoi(argv[3]);
+	tmp->t_sleep = simple_atoi(argv[4]);
+	if (argv[5])
+		tmp->nbr_t_eat = simple_atoi(argv[5]);
+	if (tmp->t_die < 60 || tmp->t_eat < 60 || tmp->t_sleep < 60 || \
+	tmp->nbr_philos < 1 || tmp->nbr_t_eat < 0 || \
+	tmp->nbr_philos > 200)
+		return (2);
 	tmp->seats = ft_calloc(tmp->nbr_philos, sizeof(pthread_t));
 	tmp->forks = ft_calloc(tmp->nbr_philos, sizeof(pthread_mutex_t));
 	init_philos(*data);
