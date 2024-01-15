@@ -6,3 +6,6 @@ objs/
 
 #executable
 philo/philo
+
+#output files
+*.txt

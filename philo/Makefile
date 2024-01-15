@@ -6,7 +6,7 @@
 #    By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/12 11:25:24 by damachad          #+#    #+#              #
-#    Updated: 2024/01/15 12:06:19 by damachad         ###   ########.fr        #
+#    Updated: 2024/01/15 13:14:49 by damachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ RM = rm -rf
 
 # -fsanitize=thread
 
-CFLAGS 	= -Wall -Werror -Wextra -pthread -fsanitize=thread -g -O1
+CFLAGS 	= -Wall -Werror -Wextra -pthread -fsanitize=thread -g
 MK_FLAG = --no-print-directory
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ PATHS _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
@@ -50,7 +50,7 @@ OBJ 		= $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(FILES)))
 # If odd philos, t_die = t_eat * 2 + t_sleep + 10 && t_sleep <= t_eat
 
 SIMPLE = 8 410 200 100
-N_DEFINED = 5 800 200 200 10
+N_DEFINED = 131 596 200 200 10
 DIE_TIME = 99 300 200 200
 INVALID = 3 800 200 200 a
 

@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:42:03 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/15 12:01:07 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/15 13:13:52 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	*ph_routine(void *arg)
 	while (!is_end(philo))
 	{
 		if (philo->id % 2 == 0)
-			eat(philo, philo->l_fork, philo->r_fork);
-		else
 			eat(philo, philo->r_fork, philo->l_fork);
+		else
+			eat(philo, philo->l_fork, philo->r_fork);
 		if (is_end(philo))
 			break ;
 		print_message(SLEEP, philo);
@@ -53,7 +53,7 @@ void	*ph_routine(void *arg)
 		if (is_end(philo))
 			break ;
 		print_message(THINK, philo);
-		// ft_usleep(10 * 1000);
+		ft_usleep(5 * 1000);
 	}
 	return (NULL);
 }
