@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:42:03 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/15 11:24:19 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:01:07 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	*ph_routine(void *arg)
 		if (is_end(philo))
 			break ;
 		print_message(THINK, philo);
+		// ft_usleep(10 * 1000);
 	}
 	return (NULL);
 }
@@ -92,7 +93,7 @@ void	*monitor1_routine(void *arg)
 		}
 		if (i == data->nbr_philos - 1)
 			i = -1;
-		usleep(1000);
+		// ft_usleep(1000);
 	}
 	return (NULL);
 }

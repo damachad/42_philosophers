@@ -3,3 +3,6 @@ philo/42-philosophers-tester-main
 
 #object files
 objs/
+
+#executable
+philo/philo

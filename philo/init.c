@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:05:20 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/15 11:33:18 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/15 11:49:48 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	seat_philos(t_data *d)
 		pthread_mutex_init(&(d->philos[i].full_t_die_lock), NULL);
 		pthread_create(&(d->seats[i]), NULL, &ph_routine, &(d->philos[i]));
 	}
-	usleep(10);
 	pthread_create(&monitor1, NULL, &monitor1_routine, d);
 	pthread_join(monitor1, NULL);
 	if (d->nbr_t_eat > 0)
