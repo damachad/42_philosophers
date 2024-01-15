@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:01:23 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/06 13:05:00 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:25:27 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	clean_data(t_data *data)
 		pthread_mutex_destroy(&(data->print));
 		pthread_mutex_destroy(&(data->fin_philos_lock));
 		pthread_mutex_destroy(&(data->dead_philo_lock));
+		pthread_mutex_destroy(&(data->start_lock));
 	}
 	if (data->seats)
 		free(data->seats);

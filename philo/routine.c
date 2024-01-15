@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:42:03 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/15 13:13:52 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:01:58 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,15 @@ void	eat(t_philo *philo, pthread_mutex_t *f1, pthread_mutex_t *f2)
 	}
 }
 
+void	before_simulation(t_philo *philo)
+{
+	while (!is_start(philo->data))
+		ft_usleep(1000);
+	update_full_t_die(philo);
+	if (philo->id % 2)
+		ft_usleep(50 * 1000);
+}
+
 void	*ph_routine(void *arg)
 {
 	t_philo		*philo;
@@ -40,20 +49,22 @@ void	*ph_routine(void *arg)
 	update_full_t_die(philo);
 	if (philo->data->nbr_philos == 1)
 		return (one_philo(philo));
+	before_simulation(philo);
 	while (!is_end(philo))
 	{
 		if (philo->id % 2 == 0)
-			eat(philo, philo->r_fork, philo->l_fork);
-		else
 			eat(philo, philo->l_fork, philo->r_fork);
+		else
+		{
+			if (philo->data->nbr_philos % 2)
+				ft_usleep(philo->data->t_eat / 2 * 1000 + 20);
+			eat(philo, philo->r_fork, philo->l_fork);
+		}
 		if (is_end(philo))
 			break ;
 		print_message(SLEEP, philo);
 		ft_usleep(philo->data->t_sleep * 1000);
-		if (is_end(philo))
-			break ;
 		print_message(THINK, philo);
-		ft_usleep(5 * 1000);
 	}
 	return (NULL);
 }
@@ -85,7 +96,7 @@ void	*monitor1_routine(void *arg)
 	i = -1;
 	while (++i < data->nbr_philos && !get_dead_philo(data))
 	{
-		if (get_full_t_die(&(philos[i])) <= get_time() && !get_dead_philo(data))
+		if (!get_dead_philo(data) && get_full_t_die(&(philos[i])) < get_time())
 		{
 			print_message(DIE, &(philos[i]));
 			update_dead_philo(data);
@@ -93,7 +104,6 @@ void	*monitor1_routine(void *arg)
 		}
 		if (i == data->nbr_philos - 1)
 			i = -1;
-		// ft_usleep(1000);
 	}
 	return (NULL);
 }

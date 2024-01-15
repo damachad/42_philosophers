@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:15:11 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/15 11:30:19 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/15 17:55:04 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,10 @@ typedef struct s_data
 	int					finished_philos;
 	long int			t_of_start;
 	bool				dead_philo;
+	bool				start;
 	t_philo				*philos;
 	pthread_t			*seats;
+	pthread_mutex_t		start_lock;
 	pthread_mutex_t		fin_philos_lock;
 	pthread_mutex_t		dead_philo_lock;
 	pthread_mutex_t		*forks;
@@ -99,11 +101,13 @@ void		update_full_t_die(t_philo *philo);
 void		update_fin_philos(t_data *data);
 void		update_dead_philo(t_data *data);
 bool		philo_died(t_philo *philo);
+void		set_start(t_data *data);
 
 // In getters.c
 bool		get_dead_philo(t_data *data);
 long int	get_full_t_die(t_philo *philo);
 int			get_fin_philos(t_data *data);
 bool		is_end(t_philo *philo);
+bool		is_start(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 11:27:31 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/15 11:30:09 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:25:09 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,14 @@ bool	is_end(t_philo *philo)
 	get_fin_philos(philo->data) >= philo->data->nbr_philos)
 		return (true);
 	return (false);
+}
+
+bool	is_start(t_data *data)
+{
+	bool	start;
+
+	pthread_mutex_lock(&(data->start_lock));
+	start = data->start;
+	pthread_mutex_unlock(&(data->start_lock));
+	return (start);
 }

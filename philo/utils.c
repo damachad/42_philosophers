@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:46:02 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/05 16:07:13 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/15 17:54:47 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_usleep(int time_in_us)
 
 	start = get_time();
 	while ((get_time() - start) * 1000 < time_in_us)
-		usleep(time_in_us / 10);
+		usleep(time_in_us / 1000);
 }
 
 /* Print a message with current time and philo id */

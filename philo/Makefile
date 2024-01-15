@@ -6,7 +6,7 @@
 #    By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/12 11:25:24 by damachad          #+#    #+#              #
-#    Updated: 2024/01/15 13:14:49 by damachad         ###   ########.fr        #
+#    Updated: 2024/01/15 17:52:02 by damachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,14 +50,21 @@ OBJ 		= $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(FILES)))
 # If odd philos, t_die = t_eat * 2 + t_sleep + 10 && t_sleep <= t_eat
 
 SIMPLE = 8 410 200 100
-N_DEFINED = 131 596 200 200 10
+N_DEFINED = 3 620 200 100 10
 DIE_TIME = 99 300 200 200
 INVALID = 3 800 200 200 a
 
 # Failing cases
-# 5 610 200 200 10 -> One philo dies when it shouldn't (sometimes)
 # 31 599 200 200 10 -> One philo should die and doesn't
-# 131 596 200 200 10 -> One philo should die and doesn't
+# 5 610 200 100 10 -> One philo dies when it shouldn't
+# 5 601 200 200 10 -> One philo dies when it shouldn't (sometimes)
+# 31 601 200 200 10 -> One philo dies when it shouldn't (sometimes)
+# 131 601 200 200 10 -> One philo dies when it shouldn't
+# 199 610 200 100 10 -> One philo dies when it shouldn't (sometimes)
+# 199 610 200 200 10 -> One philo dies when it shouldn't (sometimes)
+# 50 410 200 100 10 -> One philo dies when it shouldn't
+# 50 410 200 200 10
+# 130 410 200 100 10
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ RULES _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
 

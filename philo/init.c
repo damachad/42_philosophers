@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:05:20 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/15 11:49:48 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/15 17:54:07 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 void	init_mutexes(t_data *data)
 {
 	int	i;
-	
+
 	i = -1;
 	while (++i < data->nbr_philos)
 		pthread_mutex_init(&(data->forks[i]), NULL);
 	pthread_mutex_init(&(data->print), NULL);
 	pthread_mutex_init(&(data->fin_philos_lock), NULL);
 	pthread_mutex_init(&(data->dead_philo_lock), NULL);
+	pthread_mutex_init(&(data->start_lock), NULL);
 }
 
 int	seat_philos(t_data *d)
@@ -32,14 +33,15 @@ int	seat_philos(t_data *d)
 
 	i = -1;
 	init_mutexes(d);
-	d->t_of_start = get_time();
-	if (d->nbr_t_eat > 0)
-		pthread_create(&monitor2, NULL, &monitor2_routine, d);
 	while (++i < d->nbr_philos)
 	{
 		pthread_mutex_init(&(d->philos[i].full_t_die_lock), NULL);
 		pthread_create(&(d->seats[i]), NULL, &ph_routine, &(d->philos[i]));
 	}
+	d->t_of_start = get_time();
+	set_start(d);
+	if (d->nbr_t_eat > 0)
+		pthread_create(&monitor2, NULL, &monitor2_routine, d);
 	pthread_create(&monitor1, NULL, &monitor1_routine, d);
 	pthread_join(monitor1, NULL);
 	if (d->nbr_t_eat > 0)

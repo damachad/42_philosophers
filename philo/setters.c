@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   divide_later.c                                     :+:      :+:    :+:   */
+/*   setters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 14:58:12 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/15 11:28:10 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:25:04 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,11 @@ bool	philo_died(t_philo *philo)
 	if (get_time() > get_full_t_die(philo))
 		result = true;
 	return (result);
+}
+
+void	set_start(t_data *data)
+{
+	pthread_mutex_lock(&(data->start_lock));
+	data->start = true;
+	pthread_mutex_unlock(&(data->start_lock));
 }

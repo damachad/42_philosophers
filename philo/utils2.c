@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 14:57:52 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/15 11:30:02 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/15 17:54:54 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	*one_philo(t_philo *philo)
 {
 	print_message(FORK, philo);
 	usleep(philo->data->t_die * 1000 + 100);
-	print_message(DIE, philo);
 	return (NULL);
 }
 
