@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   divide_later.c                                     :+:      :+:    :+:   */
+/*   getters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/05 14:58:12 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/06 13:04:50 by damachad         ###   ########.fr       */
+/*   Created: 2024/01/15 11:27:31 by damachad          #+#    #+#             */
+/*   Updated: 2024/01/15 11:30:09 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	update_full_t_die(t_philo *philo)
-{
-	pthread_mutex_lock(&(philo->full_t_die_lock));
-	philo->full_t_die = philo->data->t_die + get_time();
-	pthread_mutex_unlock(&(philo->full_t_die_lock));
-}
 
 long int	get_full_t_die(t_philo *philo)
 {
@@ -39,20 +32,6 @@ int	get_fin_philos(t_data *data)
 	return (fin_philos);
 }
 
-void	update_fin_philos(t_data *data)
-{
-	pthread_mutex_lock(&(data->fin_philos_lock));
-	data->finished_philos++;
-	pthread_mutex_unlock(&(data->fin_philos_lock));
-}
-
-void	update_dead_philo(t_data *data)
-{
-	pthread_mutex_lock(&(data->dead_philo_lock));
-	data->dead_philo = true;
-	pthread_mutex_unlock(&(data->dead_philo_lock));
-}
-
 bool	get_dead_philo(t_data *data)
 {
 	bool	dead_philo;
@@ -63,12 +42,10 @@ bool	get_dead_philo(t_data *data)
 	return (dead_philo);
 }
 
-bool	philo_died(t_philo *philo)
+bool	is_end(t_philo *philo)
 {
-	bool		result;
-
-	result = false;
-	if (get_time() > get_full_t_die(philo))
-		result = true;
-	return (result);
+	if (get_dead_philo(philo->data) || \
+	get_fin_philos(philo->data) >= philo->data->nbr_philos)
+		return (true);
+	return (false);
 }

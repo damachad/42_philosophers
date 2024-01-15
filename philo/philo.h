@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:15:11 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/06 15:29:57 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/15 11:30:19 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,7 @@ void		*ft_calloc(size_t nitems, size_t size);
 
 // In utils2.c
 bool		is_all_digit(char **strs);
-bool		is_end(t_philo *philo);
-void		*one_philo(t_data *data);
+void		*one_philo(t_philo *philo);
 int			ft_strcmp(char *s1, char *s2);
 
 // In routine.c
@@ -95,13 +94,16 @@ void		*ph_routine(void *arg);
 void		*monitor1_routine(void *arg);
 void		*monitor2_routine(void *arg);
 
-// In divide_later.c
+// In setters.c
 void		update_full_t_die(t_philo *philo);
-long int	get_full_t_die(t_philo *philo);
-int			get_fin_philos(t_data *data);
 void		update_fin_philos(t_data *data);
 void		update_dead_philo(t_data *data);
-bool		get_dead_philo(t_data *data);
 bool		philo_died(t_philo *philo);
+
+// In getters.c
+bool		get_dead_philo(t_data *data);
+long int	get_full_t_die(t_philo *philo);
+int			get_fin_philos(t_data *data);
+bool		is_end(t_philo *philo);
 
 #endif

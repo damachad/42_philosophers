@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 14:57:52 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/05 15:22:57 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/15 11:30:02 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,11 @@ bool	is_all_digit(char **strs)
 	return (true);
 }
 
-bool	is_end(t_philo *philo)
+void	*one_philo(t_philo *philo)
 {
-	if (get_dead_philo(philo->data) || \
-	get_fin_philos(philo->data) >= philo->data->nbr_philos)
-		return (true);
-	return (false);
-}
-
-void	*one_philo(t_data *data)
-{
-	data->t_of_start = get_time();
-	printf("%ld 1 %s\n", get_time() - data->t_of_start, FORK);
-	usleep(data->t_die * 1000);
-	printf("%ld 1 %s\n", get_time() - data->t_of_start, DIE);
+	print_message(FORK, philo);
+	usleep(philo->data->t_die * 1000 + 100);
+	print_message(DIE, philo);
 	return (NULL);
 }
 

@@ -6,11 +6,23 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:05:20 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/06 13:04:56 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/15 11:33:18 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	init_mutexes(t_data *data)
+{
+	int	i;
+	
+	i = -1;
+	while (++i < data->nbr_philos)
+		pthread_mutex_init(&(data->forks[i]), NULL);
+	pthread_mutex_init(&(data->print), NULL);
+	pthread_mutex_init(&(data->fin_philos_lock), NULL);
+	pthread_mutex_init(&(data->dead_philo_lock), NULL);
+}
 
 int	seat_philos(t_data *d)
 {
@@ -19,12 +31,7 @@ int	seat_philos(t_data *d)
 	pthread_t		monitor2;
 
 	i = -1;
-	while (++i < d->nbr_philos)
-		pthread_mutex_init(&(d->forks[i]), NULL);
-	i = -1;
-	pthread_mutex_init(&(d->print), NULL);
-	pthread_mutex_init(&(d->fin_philos_lock), NULL);
-	pthread_mutex_init(&(d->dead_philo_lock), NULL);
+	init_mutexes(d);
 	d->t_of_start = get_time();
 	if (d->nbr_t_eat > 0)
 		pthread_create(&monitor2, NULL, &monitor2_routine, d);

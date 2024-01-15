@@ -6,7 +6,7 @@
 #    By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/12 11:25:24 by damachad          #+#    #+#              #
-#    Updated: 2024/01/06 17:07:59 by damachad         ###   ########.fr        #
+#    Updated: 2024/01/15 11:46:46 by damachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ OBJ_DIR		= objs
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ FILES _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
 
 NAME 		= philo
-FILES 		= main init utils routine utils2 divide_later
+FILES 		= main init utils routine utils2 setters getters
 SRC 		= $(addsuffix .c, $(FILES))
 OBJ 		= $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(FILES)))
 
@@ -49,8 +49,8 @@ OBJ 		= $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(FILES)))
 # If even philos, t_die = t_eat * 2 + 10 && t_sleep <= t_eat
 # If odd philos, t_die = t_eat * 2 + t_sleep + 10 && t_sleep <= t_eat
 
-SIMPLE = 199 520 200 100
-N_DEFINED = 9 800 200 200 2
+SIMPLE = 8 410 200 100
+N_DEFINED = 5 610 200 200 10
 DIE_TIME = 99 300 200 200
 INVALID = 3 800 200 200 a
 

@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:42:03 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/06 15:50:57 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/15 11:24:19 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	*ph_routine(void *arg)
 	philo = (t_philo *)arg;
 	update_full_t_die(philo);
 	if (philo->data->nbr_philos == 1)
-		return (one_philo(philo->data));
+		return (one_philo(philo));
 	while (!is_end(philo))
 	{
 		if (philo->id % 2 == 0)
