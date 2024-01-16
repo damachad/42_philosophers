@@ -6,7 +6,7 @@
 #    By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/12 11:25:24 by damachad          #+#    #+#              #
-#    Updated: 2024/01/15 17:52:02 by damachad         ###   ########.fr        #
+#    Updated: 2024/01/16 13:44:29 by damachad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ RM = rm -rf
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ FLAGS _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
 
-# -fsanitize=thread
+# -fsanitize=thread -g -O1
 
 CFLAGS 	= -Wall -Werror -Wextra -pthread -fsanitize=thread -g
 MK_FLAG = --no-print-directory
@@ -49,22 +49,18 @@ OBJ 		= $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(FILES)))
 # If even philos, t_die = t_eat * 2 + 10 && t_sleep <= t_eat
 # If odd philos, t_die = t_eat * 2 + t_sleep + 10 && t_sleep <= t_eat
 
-SIMPLE = 8 410 200 100
+SIMPLE = 5 750 200 100 5
 N_DEFINED = 3 620 200 100 10
 DIE_TIME = 99 300 200 200
 INVALID = 3 800 200 200 a
 
-# Failing cases
-# 31 599 200 200 10 -> One philo should die and doesn't
-# 5 610 200 100 10 -> One philo dies when it shouldn't
-# 5 601 200 200 10 -> One philo dies when it shouldn't (sometimes)
-# 31 601 200 200 10 -> One philo dies when it shouldn't (sometimes)
-# 131 601 200 200 10 -> One philo dies when it shouldn't
-# 199 610 200 100 10 -> One philo dies when it shouldn't (sometimes)
-# 199 610 200 200 10 -> One philo dies when it shouldn't (sometimes)
-# 50 410 200 100 10 -> One philo dies when it shouldn't
-# 50 410 200 200 10
-# 130 410 200 100 10
+# Dying cases
+# 31 550 200 200 10
+# 24 300 200 110 5
+
+# No dying cases
+# 12 410 200 100 5
+# 7 400 100 100 6
 
 # /\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_ RULES _/\_/\_/\_/\_/\_/\_/\_/\_/\_/\_/\ #
 

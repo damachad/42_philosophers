@@ -6,12 +6,13 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:46:02 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/15 17:54:47 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/16 13:39:29 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/* More precise version of usleep */
 void	ft_usleep(int time_in_us)
 {
 	long int	start;
@@ -48,6 +49,8 @@ int	simple_atoi(char *nptr)
 
 	i = -1;
 	result = 0;
+	if (ft_strlen(nptr) > 9)
+		return (-1);
 	while (nptr[++i])
 		result = result * 10 + (nptr[i] - '0');
 	return (result);

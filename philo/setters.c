@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 14:58:12 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/15 15:25:04 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:10:21 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ bool	philo_died(t_philo *philo)
 void	set_start(t_data *data)
 {
 	pthread_mutex_lock(&(data->start_lock));
+	data->t_of_start = get_time();
 	data->start = true;
 	pthread_mutex_unlock(&(data->start_lock));
 }

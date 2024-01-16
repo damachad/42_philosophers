@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:15:11 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/15 17:55:04 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/16 13:37:05 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void		*ft_calloc(size_t nitems, size_t size);
 bool		is_all_digit(char **strs);
 void		*one_philo(t_philo *philo);
 int			ft_strcmp(char *s1, char *s2);
+int			ft_strlen(char *str);
 
 // In routine.c
 void		*ph_routine(void *arg);

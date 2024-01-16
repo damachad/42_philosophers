@@ -6,12 +6,13 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:05:20 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/15 17:54:07 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/16 13:38:23 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/* Initialize mutexes on main data struct */
 void	init_mutexes(t_data *data)
 {
 	int	i;
@@ -25,6 +26,8 @@ void	init_mutexes(t_data *data)
 	pthread_mutex_init(&(data->start_lock), NULL);
 }
 
+/* Creates philo threads and monitors, synchronizes start of simulation,
+ and joins threads afterwards */
 int	seat_philos(t_data *d)
 {
 	int				i;
@@ -38,7 +41,6 @@ int	seat_philos(t_data *d)
 		pthread_mutex_init(&(d->philos[i].full_t_die_lock), NULL);
 		pthread_create(&(d->seats[i]), NULL, &ph_routine, &(d->philos[i]));
 	}
-	d->t_of_start = get_time();
 	set_start(d);
 	if (d->nbr_t_eat > 0)
 		pthread_create(&monitor2, NULL, &monitor2_routine, d);

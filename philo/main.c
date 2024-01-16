@@ -6,12 +6,13 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:01:23 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/15 15:25:27 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/16 13:05:54 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/* Destroy mutexes and free allocated resources */
 void	clean_data(t_data *data)
 {
 	int	i;

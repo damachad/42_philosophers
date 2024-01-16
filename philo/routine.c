@@ -6,22 +6,23 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 10:42:03 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/15 18:01:58 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/16 13:24:47 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/* Eating part of philo routine */
 void	eat(t_philo *philo, pthread_mutex_t *f1, pthread_mutex_t *f2)
 {
 	pthread_mutex_lock(f1);
 	print_message(FORK, philo);
 	pthread_mutex_lock(f2);
 	print_message(FORK, philo);
-	print_message(EAT, philo);
-	philo->nbr_meals++;
 	update_full_t_die(philo);
+	print_message(EAT, philo);
 	ft_usleep(philo->data->t_eat * 1000);
+	philo->nbr_meals++;
 	pthread_mutex_unlock(f1);
 	pthread_mutex_unlock(f2);
 	if (philo->data->nbr_t_eat && philo->nbr_meals >= philo->data->nbr_t_eat \
@@ -32,6 +33,7 @@ void	eat(t_philo *philo, pthread_mutex_t *f1, pthread_mutex_t *f2)
 	}
 }
 
+/* Synchronization step for beginning of simulation */
 void	before_simulation(t_philo *philo)
 {
 	while (!is_start(philo->data))
@@ -41,6 +43,7 @@ void	before_simulation(t_philo *philo)
 		ft_usleep(50 * 1000);
 }
 
+/* Routine followed by each philo */
 void	*ph_routine(void *arg)
 {
 	t_philo		*philo;
@@ -69,6 +72,7 @@ void	*ph_routine(void *arg)
 	return (NULL);
 }
 
+/* Checks if all philos have eaten the minimal amount of meals */
 void	*monitor2_routine(void *arg)
 {
 	t_data		*data;
@@ -85,6 +89,7 @@ void	*monitor2_routine(void *arg)
 	return (NULL);
 }
 
+/* Checks if time_to_die of any philo has passed and sets dead_philo */
 void	*monitor1_routine(void *arg)
 {
 	int		i;
