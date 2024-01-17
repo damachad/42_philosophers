@@ -6,7 +6,7 @@
 /*   By: damachad <damachad@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:05:20 by damachad          #+#    #+#             */
-/*   Updated: 2024/01/16 13:38:23 by damachad         ###   ########.fr       */
+/*   Updated: 2024/01/16 14:08:26 by damachad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,8 @@ int	init_data(t_data **data, char **argv)
 	tmp->t_sleep = simple_atoi(argv[4]);
 	if (argv[5])
 		tmp->nbr_t_eat = simple_atoi(argv[5]);
-	if (tmp->t_die < 60 || tmp->t_eat < 60 || tmp->t_sleep < 60 || \
-	tmp->nbr_philos < 1 || tmp->nbr_t_eat < 0 || \
-	tmp->nbr_philos > 200)
+	if (tmp->t_die <  0 || tmp->t_eat < 0 || tmp->t_sleep < 0 || \
+	tmp->nbr_philos < 0 || tmp->nbr_t_eat < 0)
 		return (2);
 	tmp->seats = ft_calloc(tmp->nbr_philos, sizeof(pthread_t));
 	tmp->forks = ft_calloc(tmp->nbr_philos, sizeof(pthread_mutex_t));
